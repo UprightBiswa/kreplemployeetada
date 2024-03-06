@@ -7,7 +7,6 @@ import 'package:kreplemployee/app/presentation/pages/landing_pages/landing_pages
 import 'package:kreplemployee/app/presentation/screens/auth/components/auth_field.dart';
 import 'package:kreplemployee/app/presentation/widgets/animations/shake_animation.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/custom_social_button.dart';
-import 'package:kreplemployee/app/presentation/widgets/buttons/custom_text_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/primary_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/dividers/custom_vertical_divider.dart';
 
@@ -17,13 +16,15 @@ class SignIn extends StatefulWidget {
   @override
   State<SignIn> createState() => _SignInState();
 }
- String getEmojiFlag(String emojiString) {
-    const flagOffset = 0x1F1E6;
-    const asciiOffset = 0x41;
-    final firstChar = emojiString.codeUnitAt(0) - asciiOffset + flagOffset;
-    final secondChar = emojiString.codeUnitAt(1) - asciiOffset + flagOffset;
-    return String.fromCharCode(firstChar) + String.fromCharCode(secondChar);
-  }
+
+String getEmojiFlag(String emojiString) {
+  const flagOffset = 0x1F1E6;
+  const asciiOffset = 0x41;
+  final firstChar = emojiString.codeUnitAt(0) - asciiOffset + flagOffset;
+  final secondChar = emojiString.codeUnitAt(1) - asciiOffset + flagOffset;
+  return String.fromCharCode(firstChar) + String.fromCharCode(secondChar);
+}
+
 class _SignInState extends State<SignIn> {
   final TextEditingController _phoneController = TextEditingController();
   bool isFormValidated = false;
@@ -137,32 +138,6 @@ class _SignInState extends State<SignIn> {
                 CustomSocialButton(onTap: () {}, icon: AppAssets.kFacebook),
                 SizedBox(width: 35.w),
                 CustomSocialButton(onTap: () {}, icon: AppAssets.kApple),
-              ],
-            ),
-            SizedBox(height: 65.h),
-            Center(
-              child: PrimaryButton(
-                onTap: () {},
-                text: 'Continue as a Guest',
-                color: isDarkMode(context)
-                    ? AppColors.kDarkHint
-                    : AppColors.kInput,
-                width: 240.w,
-              ),
-            ),
-            SizedBox(height: 5.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Create a New Account?',
-                    style: AppTypography.kMedium13
-                        .copyWith(color: AppColors.kNeutral)),
-                // CustomTextButton(
-                //   onPressed: () {
-                //     Get.to(() => const SignUp(), transition: Transition.zoom);
-                //   },
-                //   text: 'Sign Up',
-                // )
               ],
             ),
             SizedBox(height: 20.h),

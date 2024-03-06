@@ -1,14 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
 
-
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
-    primarySwatch: Colors.purple,
+    primarySwatch: Colors.green,
     brightness: Brightness.light,
     scaffoldBackgroundColor: AppColors.kBackground,
     appBarTheme: const AppBarTheme(
@@ -102,7 +100,7 @@ class AppTheme {
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.black,
       elevation: 0,
-      showSelectedLabels: false,
+      showSelectedLabels: false, //logo.png//logo_blue.png
       showUnselectedLabels: false,
     ),
   );

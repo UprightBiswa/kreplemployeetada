@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kreplemployee/app/logic/controllers/theme_controller.dart';
+import 'package:kreplemployee/app/logic/provider/common_providers.dart';
 import 'package:kreplemployee/app/logic/services/theme_services.dart';
-import 'package:kreplemployee/app/routes/app_routes.dart';
+import 'package:kreplemployee/app/presentation/screens/splash_screens/splash_screens.dart';
 import 'package:kreplemployee/classes/language_constrants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'app/data/constants/constants.dart';
 
 void main() async {
@@ -31,7 +33,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
+  late ThemeController _themeController;
   // This widget is the root of your application.
+   @override
+  void initState() {
+    super.initState();
+    _themeController = ThemeController();
+    print(_themeController.theme.value); 
+
+  }
   setLocale(Locale locale) {
     setState(() {
       _locale = locale;
@@ -46,37 +56,37 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final themeController = Get.put(ThemeController());
-    // print(themeController.theme);
-    print(themeController.theme.value); 
-    return ScreenUtilInit(
-      designSize: const Size(375, 844),
-      useInheritedMediaQuery: true,
-      builder: (context, child) {
-        return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
-          child: GetMaterialApp(
-            useInheritedMediaQuery: true,
-            debugShowCheckedModeBanner: false,
-            title: 'kreplemployee',
-            scrollBehavior: const ScrollBehavior()
-                .copyWith(physics: const BouncingScrollPhysics()),
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            // themeMode: getThemeMode(themeController.theme),
-             themeMode: getThemeMode(themeController.theme.value),
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            locale: _locale,
-            initialRoute: AppRoutes.getOnboardingRoute(),
-            getPages: AppRoutes.routes,
-            // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-          ),
-        );
-      }
+    // final themeController = Get.put(ThemeController());
+    return MultiProvider(
+       providers: [
+        CommonProviders.authStateProvider(),
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(375, 844),
+        useInheritedMediaQuery: true,
+        builder: (context, child) {
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: GetMaterialApp(
+              useInheritedMediaQuery: true,
+              debugShowCheckedModeBanner: false,
+              title: 'kreplemployee',
+              scrollBehavior: const ScrollBehavior()
+                  .copyWith(physics: const BouncingScrollPhysics()),
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+               themeMode: getThemeMode(_themeController.theme.value),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: _locale,
+               home: const SplashScreen(),
+            ),
+          );
+        }
+      ),
     );
   }
 }

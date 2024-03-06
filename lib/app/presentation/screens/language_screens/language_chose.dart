@@ -96,10 +96,10 @@ class _LanguageScreenState extends State<LanguageScreen> {
                         height: 100,
                       ),
                       const SizedBox(height: 16),
-                      Text(
+                      const Text(
                         'Choose your preferred language:',
                         style: TextStyle(
-                            color: const Color.fromRGBO(0, 0, 0, 1),
+                            color: Color.fromRGBO(0, 0, 0, 1),
                             fontSize: 18,
                             fontWeight: FontWeight.w500),
                       ),
@@ -142,7 +142,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                                         : Colors.transparent,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),
-                                      side: BorderSide(
+                                      side: const BorderSide(
                                         color: AppColors.kPrimary,
                                         width: 2,
                                       ),
