@@ -23,7 +23,7 @@ class BookingStatusCard extends StatelessWidget {
         textColor = AppColors.kPrimary;
         break;
       case BookingStatus.pending:
-         containerColor = const Color(0xFFEB833C1A).withOpacity(0.1);
+         containerColor = const Color(0xFFEB833C).withOpacity(0.1);
         textColor = AppColors.kAccent1;
         break;
       case BookingStatus.draft:

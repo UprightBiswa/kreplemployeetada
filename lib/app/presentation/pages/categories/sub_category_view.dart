@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
@@ -30,12 +29,15 @@ class _SubCategoryViewState extends State<SubCategoryView> {
   void initState() {
     super.initState();
     filterServicesByCategory(widget.category);
+    print('${widget.category}');
   }
 
   void filterServicesByCategory(CategoryModel category) {
     setState(() {
       subCategoriesList =
           allServices.where((service) => service.category == category).toList();
+      print(subCategoriesList);
+      print(widget.category.name);
     });
   }
 

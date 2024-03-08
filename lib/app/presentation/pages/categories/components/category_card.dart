@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,21 +5,38 @@ import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
 import 'package:kreplemployee/app/data/model/category_model.dart';
 import 'package:kreplemployee/app/presentation/pages/categories/sub_category_view.dart';
+import 'package:kreplemployee/app/presentation/screens/tourplan/tourplanpage.dart';
 import 'package:kreplemployee/app/presentation/widgets/animations/button_animation.dart';
 
 class CategoryCard extends StatelessWidget {
   final CategoryModel category;
   final bool isGridView;
-  const CategoryCard(
-      {required this.category, this.isGridView = false, super.key});
+  const CategoryCard({
+    required this.category,
+    this.isGridView = false,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ButtonAnimation(
       onTap: () {
-        Get.to(() => SubCategoryView(
-              category: category,
-            ));
+       switch (category.pageName) {
+        case 'TourPlanPage':
+          Get.to(() => const TourPlanPage());
+          break;
+        case 'BeautyPage':
+         // Get.to(() => BeautyPage());
+          break;
+        case 'AppliancePage':
+         // Get.to(() => AppliancePage());
+          break;
+        // Add more cases for other pages as needed
+        default:
+          // Navigate to SubCategoryView by default
+          Get.to(() => SubCategoryView(category: category));
+          break;
+      }
       },
       child: Column(
         children: [

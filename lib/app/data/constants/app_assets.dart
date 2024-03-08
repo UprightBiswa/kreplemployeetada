@@ -10,6 +10,7 @@ class AppAssets {
   static String kOrder = 'assets/icons/order.svg';
   static String kActiveOrder = 'assets/icons/order-active.svg';
 
+  static String kAdd = 'assets/icons/add.svg';
   static String kCall = 'assets/icons/call.svg';
   static String kCalendar = 'assets/icons/calendar.svg';
   static String kPaymentMethod = 'assets/icons/payment_method.svg';
@@ -23,7 +24,7 @@ class AppAssets {
   static String kDark = 'assets/icons/dark.svg';
   static String kEdit = 'assets/icons/edit.svg';
   //Categories
-  static String kAcRepair = 'assets/icons/ac_repair.svg';
+  static String kTour = 'assets/icons/tour.svg';
   static String kAppliance = 'assets/icons/appliance.svg';
   static String kCleaning = 'assets/icons/cleaning.svg';
   static String kPlumbing = 'assets/icons/plumbing.svg';

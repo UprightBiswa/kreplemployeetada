@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -47,7 +46,7 @@ class OnboardingScreenState extends State<OnboardingScreen> {
               child: PageView.builder(
             itemCount: onboardingList.length,
             controller: _pageController,
-            physics: const NeverScrollableScrollPhysics(),
+            //  physics: const NeverScrollableScrollPhysics(),
             onPageChanged: (index) {
               setState(() {
                 _currentPageIndex = index;

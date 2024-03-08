@@ -80,7 +80,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               SizedBox(height: 5.h),
               SideMenu(
                 onPressed: () {
-                 menuController.setSelectedMenuIndex(1);
+                 menuController.setSelectedMenuIndex(2);
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
@@ -88,13 +88,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   });
                 },
                 icon: AppAssets.kAddress,
-                isSelected: menuController.selectedMenuIndex.value == 1,
+                isSelected: menuController.selectedMenuIndex.value == 2,
                 text: 'Address',
               ),
               SizedBox(height: 5.h),
               SideMenu(
                 onPressed: () {
-                 menuController.setSelectedMenuIndex(1);
+                 menuController.setSelectedMenuIndex(3);
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
@@ -102,13 +102,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   });
                 },
                 icon: AppAssets.kNotification,
-                isSelected: menuController.selectedMenuIndex.value == 1,
+                isSelected: menuController.selectedMenuIndex.value == 3,
                 text: 'Notifications',
               ),
               SizedBox(height: 5.h),
               SideMenu(
                 onPressed: () {
-                 menuController.setSelectedMenuIndex(1);
+                 menuController.setSelectedMenuIndex(4);
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
@@ -116,13 +116,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   });
                 },
                 icon: AppAssets.kOffers,
-               isSelected: menuController.selectedMenuIndex.value == 1,
+               isSelected: menuController.selectedMenuIndex.value == 4,
                 text: 'Offers',
               ),
               SizedBox(height: 5.h),
               SideMenu(
                 onPressed: () {
-                  menuController.setSelectedMenuIndex(1);
+                  menuController.setSelectedMenuIndex(5);
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
@@ -130,7 +130,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   });
                 },
                 icon: AppAssets.kSupport,
-               isSelected: menuController.selectedMenuIndex.value == 1,
+               isSelected: menuController.selectedMenuIndex.value == 5,
                 text: 'Support',
               ),
               SizedBox(height: 5.h),

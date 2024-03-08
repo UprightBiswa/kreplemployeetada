@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,7 +32,7 @@ class CheckoutServiceCard extends StatelessWidget {
               padding: EdgeInsets.all(17.h),
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: AppColors.kAccent1),
-              child: SvgPicture.asset(AppAssets.kAcRepair),
+              child: SvgPicture.asset(AppAssets.kTour),
             ),
             SizedBox(width: 16.w),
             Column(
