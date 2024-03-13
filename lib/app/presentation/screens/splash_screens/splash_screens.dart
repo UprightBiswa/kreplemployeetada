@@ -306,7 +306,7 @@ class _SplashScreenState extends State<SplashScreen>
             const SizedBox(width: 8),
             Image.asset(
               'assets/images/indigi.png',
-              height: 50,
+              height: 30,
             ),
           ],
         ),

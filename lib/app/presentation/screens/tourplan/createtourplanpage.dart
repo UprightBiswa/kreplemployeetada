@@ -13,6 +13,7 @@ import 'package:kreplemployee/app/presentation/screens/tourplan/components/add_c
 import 'package:kreplemployee/app/presentation/screens/tourplan/components/add_others_visit_list.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/components/add_purpose_list.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/components/add_village_visit_list.dart';
+import 'package:kreplemployee/app/presentation/screens/tourplan/components/location_map.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/components/plan_type_card.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/components/selected_type_view.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/components/tour_save_sheet.dart';
@@ -34,6 +35,8 @@ class _CreateTourPlanPageState extends State<CreateTourPlanPage> {
   Village? _selectedVillage;
   Other? _selectedOther;
   Purpose? _selectedPurpose;
+  Location? _selectedLocation;
+
   @override
   Widget build(BuildContext context) {
     bool isDarkMode(BuildContext context) =>
@@ -178,7 +181,44 @@ class _CreateTourPlanPageState extends State<CreateTourPlanPage> {
                       description: _selectedPurpose!.description,
                       image: _selectedPurpose!.image,
                     ),
-                  //SizedBox(height: 5.h),
+                ],
+              ),
+            ),
+            SizedBox(height: 16.h),
+            // PrimaryContainer(
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       CheckoutCustomCard(
+            //         text: 'Location',
+            //         onTap: () async {
+            //           final selectedLocation = await Get.to<Location?>(
+            //             () => const LocationMap(),
+            //           );
+            //           if (selectedLocation != null) {
+            //             setState(() {
+            //               _selectedLocation = selectedLocation;
+            //             });
+            //           }
+            //         },
+            //       ),
+            //       SizedBox(height: 5.h),
+            //       if (_selectedLocation != null)
+            //         SelectedItemView(
+            //           title: 'Location',
+            //           name: _selectedLocation!.name,
+            //           description: _selectedLocation!.description,
+            //           image: _selectedLocation!.image,
+            //         ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(height: 16.h),
+            PrimaryContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CheckOutDateTimeCard(),
                 ],
               ),
             ),
@@ -187,37 +227,17 @@ class _CreateTourPlanPageState extends State<CreateTourPlanPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 24.h),
-                  Text('Date of Birth', style: AppTypography.kMedium15),
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 16.h),
+                  Text('Remarks', style: AppTypography.kMedium15),
                   TextFormField(
                     controller: _dobController,
                     decoration: const InputDecoration(
-                      hintText: '06/11/1998',
+                      hintText: '',
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.datetime,
                   ),
-                  SizedBox(height: 16.h),
-                  const CheckOutDateTimeCard(),
-                  SizedBox(height: 16.h),
-                  CheckoutCustomCard(
-                      text: 'Address',
-                      onTap: () {
-                        Get.to(() => const AddressView(isCheckOutPage: true));
-                      }),
-                  SizedBox(height: 10.h),
-                  CheckoutCustomCard(
-                      text: 'List Of Customers',
-                      onTap: () {
-                        Get.to(() => const AddPhoneNumberView());
-                      }),
-                  SizedBox(height: 10.h),
-                  CheckoutCustomCard(
-                      text: 'List Of Villages',
-                      onTap: () {
-                        Get.to(() => const AddPromoCode());
-                      }),
+                  SizedBox(height: 8.h),
                 ],
               ),
             ),
