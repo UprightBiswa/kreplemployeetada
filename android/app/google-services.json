@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "939941016475",
+    "project_id": "kreplemployee",
+    "storage_bucket": "kreplemployee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939941016475:android:ab39864c8182612cf7673e",
+        "android_client_info": {
+          "package_name": "com.example.kreplemployee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCC-uy8QObsCn56Jd3iT2n6vHfzCt1Jy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

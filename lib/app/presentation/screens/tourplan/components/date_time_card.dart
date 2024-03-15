@@ -8,17 +8,20 @@ import 'package:kreplemployee/app/presentation/widgets/buttons/custom_button.dar
 import 'package:kreplemployee/app/presentation/widgets/containers/primary_container.dart';
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
 
-class CheckOutDateTimeCard extends StatefulWidget {
+class DateTimeCard extends StatefulWidget {
+ final Function(DateTime) onDateChanged;
+  final Function(DateTime) onTimeChanged;
 
-
-  const CheckOutDateTimeCard({
+  const DateTimeCard({
     Key? key,
+    required this.onDateChanged,
+    required this.onTimeChanged,
   }) : super(key: key);
   @override
-  State<CheckOutDateTimeCard> createState() => _CheckOutDateTimeCardState();
+  State<DateTimeCard> createState() => _DateTimeCardState();
 }
 
-class _CheckOutDateTimeCardState extends State<CheckOutDateTimeCard> {
+class _DateTimeCardState extends State<DateTimeCard> {
   late DateTime _selectedDate;
   late DateTime _selectedTime;
   @override
@@ -62,12 +65,13 @@ class _CheckOutDateTimeCardState extends State<CheckOutDateTimeCard> {
                       onDateSelected: (DateTime date) {
                         setState(() {
                           _selectedDate = date;
-                       
+                          widget.onDateChanged(date);
                         });
                       },
                       onTimeSelected: (DateTime time) {
                         setState(() {
                           _selectedTime = time;
+                          widget.onTimeChanged(time);
                         });
                       },
                     );

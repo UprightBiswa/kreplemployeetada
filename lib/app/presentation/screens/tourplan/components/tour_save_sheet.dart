@@ -5,12 +5,12 @@ import 'package:kreplemployee/app/presentation/widgets/buttons/primary_button.da
 
 class SaveTourSheet extends StatelessWidget {
   final VoidCallback? saveCallback;
-  final VoidCallback? bookCallback;
+  final VoidCallback? draftCallback;
   final String bookText;
   const SaveTourSheet({
     super.key,
     this.saveCallback,
-    this.bookCallback,
+    this.draftCallback,
     required this.bookText,
   });
 
@@ -21,16 +21,16 @@ class SaveTourSheet extends StatelessWidget {
 
     return Container(
       color: isDarkMode(context) ? Colors.black : AppColors.kWhite,
-      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+      padding:
+          EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 10.h),
           Row(
             children: [
               Expanded(
                 child: PrimaryButton(
-                  onTap: saveCallback!,
+                  onTap: draftCallback!,
                   text: 'Save Draft',
                   color: isDarkMode(context)
                       ? AppColors.kContentColor
@@ -41,7 +41,7 @@ class SaveTourSheet extends StatelessWidget {
               SizedBox(width: 10.w),
               Expanded(
                 child: PrimaryButton(
-                  onTap: bookCallback!,
+                  onTap: saveCallback!,
                   text: bookText,
                 ),
               )

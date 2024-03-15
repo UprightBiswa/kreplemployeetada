@@ -70,7 +70,7 @@ class TourPlanPage extends StatelessWidget {
                       text: 'Recent',
                     ),
                     Tab(
-                      text: 'History',
+                      text: 'Approved',
                     ),
                     Tab(
                       text: 'Draft',
