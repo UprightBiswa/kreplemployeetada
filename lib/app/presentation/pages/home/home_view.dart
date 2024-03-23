@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
-import 'package:kreplemployee/app/data/model/category_model.dart';
-import 'package:kreplemployee/app/data/model/services_model.dart';
-import 'package:kreplemployee/app/presentation/pages/categories/all_categories_view.dart';
-import 'package:kreplemployee/app/presentation/pages/categories/components/category_card.dart';
-import 'package:kreplemployee/app/presentation/pages/home/components/home_services_card.dart';
-import 'package:kreplemployee/app/presentation/pages/home/components/offers_list.dart';
-import 'package:kreplemployee/app/presentation/pages/home/components/search_field.dart';
-import 'package:kreplemployee/app/presentation/widgets/buttons/custom_button.dart';
+import 'package:kreplemployee/app/data/model/pages_model.dart';
+import 'package:kreplemployee/app/presentation/pages/menus/all_menus_view.dart';
+import 'package:kreplemployee/app/presentation/pages/menus/components/pages_card.dart';
+import 'package:kreplemployee/app/presentation/pages/home/components/new_products_list.dart';
 import 'package:kreplemployee/app/presentation/widgets/containers/primary_container.dart';
-import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -21,8 +16,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final TextEditingController _searchController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -37,24 +30,20 @@ class _HomeViewState extends State<HomeView> {
           children: [
             SizedBox(height: 20.h),
             PrimaryContainer(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Hello Krepl Employee 👋',
-                    style: AppTypography.kMedium14
-                        .copyWith(color: AppColors.kGrey)),
-                SizedBox(height: 4.h),
-                Text('What you are looking for today',
-                    style: AppTypography.kBold32),
-                SizedBox(height: 14.h),
-                SearchField(
-                  controller: _searchController,
-                  onSearchPress: () {},
-                ),
-              ],
-            )),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Hello Krepl Employee 👋',
+                      style: AppTypography.kMedium14
+                          .copyWith(color: AppColors.kGrey)),
+                  SizedBox(height: 4.h),
+                  Text('What you are looking for today',
+                      style: AppTypography.kBold32),
+                ],
+              ),
+            ),
             SizedBox(height: 16.h),
-            const OfferList(),
+            const NewProductList(),
             SizedBox(height: 16.h),
             PrimaryContainer(
               child: Row(
@@ -62,10 +51,10 @@ class _HomeViewState extends State<HomeView> {
                 children: List.generate(4, (index) {
                   if (index == 3) {
                     return CategorySeeAllButton(onTap: () {
-                      Get.to(() => const AllCategories());
+                      Get.to(() => const AllPages());
                     });
                   } else {
-                    return CategoryCard(
+                    return PagesCard(
                       category: categories[index],
                     );
                   }
@@ -73,44 +62,6 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             SizedBox(height: 16.h),
-            PrimaryContainer(
-                padding: EdgeInsets.zero,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(16.h),
-                      child: Row(
-                        children: [
-                          CustomHeaderText(
-                            text: 'Cleaning Services',
-                            fontSize: 18.sp,
-                          ),
-                          const Spacer(),
-                          CustomButton(
-                              text: 'See All',
-                              icon: AppAssets.kArrowForward,
-                              isBorder: true,
-                              onTap: () {})
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 195.h,
-                      child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.only(left: 16.w),
-                          itemBuilder: (context, index) {
-                            return HomeServicesCard(
-                              service: cleaningServices[index],
-                            );
-                          },
-                          separatorBuilder: (context, index) =>
-                              SizedBox(width: 16.w),
-                          itemCount: cleaningServices.length),
-                    ),
-                    SizedBox(height: 16.h),
-                  ],
-                )),
           ],
         ),
       ),

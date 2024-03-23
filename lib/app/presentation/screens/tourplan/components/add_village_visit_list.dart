@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
 import 'package:kreplemployee/app/presentation/pages/home/components/search_field.dart';
+import 'package:kreplemployee/app/presentation/widgets/buttons/custom_text_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/primary_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/containers/primary_container.dart';
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
@@ -16,7 +17,8 @@ class VillageListPage extends StatefulWidget {
 class _VillageListPageState extends State<VillageListPage> {
   final TextEditingController _searchController = TextEditingController();
 
-  int? _selectedVillageIndex;
+  List<int> _selectedVillageIndexes = [];
+  List<Village> _selectedVillages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,37 @@ class _VillageListPageState extends State<VillageListPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomHeaderText(text: 'Villages', fontSize: 18.sp),
+                  Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomHeaderText(text: 'Villages', fontSize: 18.sp),
+                      _selectedVillageIndexes.isNotEmpty
+                          ? CustomTextButton(
+                              onPressed: () {
+                                setState(() {
+                                  _selectedVillageIndexes.clear();
+                                });
+                              },
+                              text:
+                                  'Clear All (${_selectedVillageIndexes.length})',
+                            )
+                          : CustomTextButton(
+                              onPressed: () {
+                                setState(() {
+                                  // Clear the existing selected customer indexes
+                                  _selectedVillageIndexes.clear();
+                                  // Add all customer indexes to the selected list
+                                  for (int i = 0; i < villages.length; i++) {
+                                    _selectedVillageIndexes.add(i);
+                                    _selectedVillages.add(villages[i]);
+                                  }
+                                });
+                              },
+                              text: 'Select All',
+                            ),
+                    ],
+
+                  ),
                   SizedBox(height: 16.h),
                   ListView.separated(
                     shrinkWrap: true,
@@ -62,12 +94,16 @@ class _VillageListPageState extends State<VillageListPage> {
                       return VillageCard(
                         onTap: () {
                           setState(() {
-                            // _selectedVillageIndex = index;
-                            _selectedVillageIndex =
-                                _selectedVillageIndex == index ? null : index;
+                            if (_selectedVillageIndexes.contains(index)) {
+                              _selectedVillageIndexes.remove(index);
+                              _selectedVillages.remove(villages[index]);
+                            } else {
+                              _selectedVillageIndexes.add(index);
+                              _selectedVillages.add(villages[index]);
+                            }
                           });
                         },
-                        isSelected: _selectedVillageIndex == index,
+                        isSelected: _selectedVillageIndexes.contains(index),
                         village: villages[index],
                       );
                     },
@@ -89,10 +125,12 @@ class _VillageListPageState extends State<VillageListPage> {
             SizedBox(height: 10.h),
             PrimaryButton(
               onTap: () {
-                if (_selectedVillageIndex != null) {
-                  Village selectedCustomer = villages[_selectedVillageIndex!];
-                  print('Selected customer name: ${selectedCustomer.name}');
-                  Navigator.pop(context, selectedCustomer);
+                if (_selectedVillageIndexes.isNotEmpty) {
+                  print('Selected villages:');
+                  for (var village in _selectedVillages) {
+                    print(village.name);
+                  }
+                  Navigator.pop(context, _selectedVillages);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -102,7 +140,7 @@ class _VillageListPageState extends State<VillageListPage> {
                 }
               },
               text: 'Select',
-              color: _selectedVillageIndex != null
+              color: _selectedVillageIndexes.isNotEmpty
                   ? AppColors.kPrimary
                   : isDarkMode(context)
                       ? AppColors.kContentColor

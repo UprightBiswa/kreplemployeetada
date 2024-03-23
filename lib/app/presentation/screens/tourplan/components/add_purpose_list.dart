@@ -92,7 +92,7 @@ class _PurposeListPageState extends State<PurposeListPage> {
                 if (_selectedPurposeIndex != null) {
                   Purpose selectedCustomer = purposes[_selectedPurposeIndex!];
                   print('Selected Purpose name: ${selectedCustomer.name}');
-                  Navigator.pop(context, selectedCustomer);
+                  Navigator.pop(context, [selectedCustomer]);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
-import 'package:kreplemployee/app/data/model/services_model.dart';
-import 'package:kreplemployee/app/presentation/pages/categories/components/sub_category_grid_card.dart';
-import 'package:kreplemployee/app/presentation/pages/categories/components/sub_category_list_card.dart';
+import 'package:kreplemployee/app/data/model/product_model.dart';
+import 'package:kreplemployee/app/presentation/pages/menus/components/sub_category_grid_card.dart';
+import 'package:kreplemployee/app/presentation/pages/menus/components/sub_category_list_card.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/custom_icon_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/containers/primary_container.dart';
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';

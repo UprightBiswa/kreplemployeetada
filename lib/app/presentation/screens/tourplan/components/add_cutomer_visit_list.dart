@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
 import 'package:kreplemployee/app/presentation/pages/home/components/search_field.dart';
+import 'package:kreplemployee/app/presentation/widgets/buttons/custom_text_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/primary_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/containers/primary_container.dart';
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
@@ -17,7 +17,9 @@ class CustomerListPage extends StatefulWidget {
 class _CustomerListPageState extends State<CustomerListPage> {
   final TextEditingController _searchController = TextEditingController();
 
-  int? _selectedCustomerIndex;
+  // int? _selectedCustomerIndex;
+  List<int> _selectedCustomerIndexes = [];
+  List<Customer> _selectedCustomers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,36 @@ class _CustomerListPageState extends State<CustomerListPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomHeaderText(text: 'Customers', fontSize: 18.sp),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomHeaderText(text: 'Customers', fontSize: 18.sp),
+                      _selectedCustomerIndexes.isNotEmpty
+                          ? CustomTextButton(
+                              onPressed: () {
+                                setState(() {
+                                  _selectedCustomerIndexes.clear();
+                                });
+                              },
+                              text:
+                                  'Clear All (${_selectedCustomerIndexes.length})',
+                            )
+                          : CustomTextButton(
+                              onPressed: () {
+                                setState(() {
+                                  // Clear the existing selected customer indexes
+                                  _selectedCustomerIndexes.clear();
+                                  // Add all customer indexes to the selected list
+                                  for (int i = 0; i < customers.length; i++) {
+                                    _selectedCustomerIndexes.add(i);
+                                    _selectedCustomers.add(customers[i]);
+                                  }
+                                });
+                              },
+                              text: 'Select All',
+                            ),
+                    ],
+                  ),
                   SizedBox(height: 16.h),
                   ListView.separated(
                     shrinkWrap: true,
@@ -64,11 +95,20 @@ class _CustomerListPageState extends State<CustomerListPage> {
                         onTap: () {
                           setState(() {
                             // _selectedCustomerIndex = index;
-                            _selectedCustomerIndex =
-                                _selectedCustomerIndex == index ? null : index;
+                            // _selectedCustomerIndex =
+                            //     _selectedCustomerIndex == index ? null : index;
+                            if (_selectedCustomerIndexes.contains(index)) {
+                              _selectedCustomerIndexes.remove(index);
+                              _selectedCustomers.remove(customers[index]);
+                            } else {
+                              _selectedCustomerIndexes.add(index);
+                              _selectedCustomers.add(customers[index]);
+                            }
                           });
                         },
-                        isSelected: _selectedCustomerIndex == index,
+                        // isSelected: _selectedCustomerIndex == index,
+                        // customer: customers[index],
+                        isSelected: _selectedCustomerIndexes.contains(index),
                         customer: customers[index],
                       );
                     },
@@ -78,23 +118,26 @@ class _CustomerListPageState extends State<CustomerListPage> {
                 ],
               ),
             ),
+            SizedBox(height: 100.h),
           ],
         ),
       ),
       bottomSheet: Container(
         color: isDarkMode(context) ? Colors.black : AppColors.kWhite,
-        padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+        padding:
+            EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(height: 10.h),
             PrimaryButton(
               onTap: () {
-                if (_selectedCustomerIndex != null) {
-                  Customer selectedCustomer =
-                      customers[_selectedCustomerIndex!];
-                  print('Selected customer name: ${selectedCustomer.name}');
-                  Navigator.pop(context, selectedCustomer);
+                if (_selectedCustomerIndexes.isNotEmpty) {
+                  print('Selected customers:');
+                  for (var customer in _selectedCustomers) {
+                    print(customer.name);
+                  }
+                  Navigator.pop(context, _selectedCustomers);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -104,7 +147,7 @@ class _CustomerListPageState extends State<CustomerListPage> {
                 }
               },
               text: 'Select',
-              color: _selectedCustomerIndex != null
+              color: _selectedCustomerIndexes.isNotEmpty
                   ? AppColors.kPrimary
                   : isDarkMode(context)
                       ? AppColors.kContentColor
@@ -199,4 +242,47 @@ final List<Customer> customers = [
     description: 'Customer description...',
     image: AppAssets.kLogo,
   ),
+  // Add more customers here
+  Customer(
+    name: 'Alice Johnson',
+    description: 'Customer description...',
+    image: AppAssets.kLogo,
+  ),
+  Customer(
+    name: 'Bob Brown',
+    description: 'Customer description...',
+    image: AppAssets.kLogo,
+  ),
+  // Add more customers as needed
+  Customer(
+    name: 'Michael Wilson',
+    description: 'Customer description...',
+    image: AppAssets.kLogo,
+  ),
+  Customer(
+    name: 'Emily Davis',
+    description: 'Customer description...',
+    image: AppAssets.kLogo,
+  ),
+  Customer(
+    name: 'Emily Davis',
+    description: 'Customer description...',
+    image: AppAssets.kLogo,
+  ),
+  Customer(
+    name: 'Emily Davis',
+    description: 'Customer description...',
+    image: AppAssets.kLogo,
+  ),
+  Customer(
+    name: 'Emily Davis',
+    description: 'Customer description...',
+    image: AppAssets.kLogo,
+  ),
+  Customer(
+    name: 'Emily Davis',
+    description: 'Customer description...',
+    image: AppAssets.kLogo,
+  ),
+  // Add more customers as needed
 ];

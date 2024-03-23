@@ -4,16 +4,12 @@ import 'package:kreplemployee/app/data/constants/constants.dart';
 
 class SelectedItemView extends StatelessWidget {
   final String title;
-  final String name;
-  final String description;
-  final String image;
+  final List<dynamic> selectedItems; // Update to accept a list of dynamic items
 
   const SelectedItemView({
     Key? key,
     required this.title,
-    required this.name,
-    required this.description,
-    required this.image,
+    required this.selectedItems,
   }) : super(key: key);
 
   @override
@@ -29,43 +25,52 @@ class SelectedItemView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10.h),
-        Container(
-          padding: EdgeInsets.all(12.h),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.r),
-            color: null,
-            border: Border.all(color: AppColors.kHint),
-          ),
-          child: Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: AssetImage(image),
-                radius: 25.w,
-              ),
-              SizedBox(width: 16.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        // Display selected items dynamically
+        Column(
+          children: selectedItems.map((item) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Container(
+                padding: EdgeInsets.all(12.h),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  color: null,
+                  border: Border.all(color: AppColors.kHint),
+                ),
+                child: Row(
                   children: [
-                    Text(
-                      'Name: $name',
-                      style: AppTypography.kMedium16,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
+                    // Assuming all models have 'name', 'description', and 'image' properties
+                    CircleAvatar(
+                      backgroundImage: AssetImage(item.image),
+                      radius: 25.w,
                     ),
-                    SizedBox(height: 10.h),
-                    Text(
-                      'Description: $description',
-                      style: AppTypography.kLight13
-                          .copyWith(color: AppColors.kNeutral),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
+                    SizedBox(width: 16.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Name: ${item.name}',
+                            style: AppTypography.kMedium16,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                          ),
+                          SizedBox(height: 10.h),
+                          Text(
+                            'Description: ${item.description}',
+                            style: AppTypography.kLight13
+                                .copyWith(color: AppColors.kNeutral),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            );
+          }).toList(),
         ),
       ],
     );

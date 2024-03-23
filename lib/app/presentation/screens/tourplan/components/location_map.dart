@@ -7,9 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
-import 'package:kreplemployee/app/data/model/address_model.dart';
 import 'package:kreplemployee/app/presentation/pages/home/components/search_field.dart';
-import 'package:kreplemployee/app/presentation/screens/tourplan/components/selected_type_view.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/custom_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/primary_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/containers/primary_container.dart';
@@ -158,7 +156,7 @@ class _LocationMapState extends State<LocationMap> {
           // Initialize locations list with search results
           locations = _searchResults.map((result) {
             return Location(
-              name: result.name ?? 'Unnamed',
+              name: result.name,
               description: result.formattedAddress ?? 'No address provided',
               image: AppAssets.kLogo,
             );

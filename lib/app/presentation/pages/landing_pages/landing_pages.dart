@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
-import 'package:kreplemployee/app/presentation/pages/bookings/bookings_view.dart';
+import 'package:kreplemployee/app/presentation/pages/products/products_view.dart';
 import 'package:kreplemployee/app/presentation/pages/home/components/home_appbar.dart';
 import 'package:kreplemployee/app/presentation/pages/home/home_view.dart';
 import 'package:kreplemployee/app/presentation/pages/notifications/notification_view.dart';
@@ -38,7 +38,7 @@ class LandingPageState extends State<LandingPage> {
       PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: HomeAppBar(
-          title: 'Bookings',
+          title: 'Products',
           onLeadingPressed: () {
             scaffoldKey.currentState?.openDrawer();
           },
@@ -95,7 +95,7 @@ class LandingPageState extends State<LandingPage> {
               activeIcon: SvgPicture.asset(AppAssets.kActiveHome),
             ),
             BottomNavigationBarItem(
-              label: 'Orders',
+              label: 'Products',
               icon: SvgPicture.asset(AppAssets.kOrder),
               activeIcon: SvgPicture.asset(AppAssets.kActiveOrder),
             ),

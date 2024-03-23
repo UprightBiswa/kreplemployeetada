@@ -15,7 +15,7 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+ State<SplashScreen> createState() => _SplashScreenState();
 }
 
 void showToast(String message, BuildContext context) {
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
     getAppVersion();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 3),
     );
 
     _logoAnimation = Tween<double>(begin: -100, end: 0).animate(
@@ -306,7 +306,8 @@ class _SplashScreenState extends State<SplashScreen>
             const SizedBox(width: 8),
             Image.asset(
               'assets/images/indigi.png',
-              height: 30,
+              width: 50,
+              height: 50,
             ),
           ],
         ),

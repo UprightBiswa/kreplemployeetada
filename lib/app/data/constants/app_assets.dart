@@ -105,4 +105,5 @@ class AppAssets {
   static String kReferFriend = 'assets/images/referFriend.png';
   static String kRewards = 'assets/images/rewards.png';
   static String kLogo = 'assets/images/app_icon.png';
+  static String kProductsBanner = 'assets/images/banner.jpg';
 }

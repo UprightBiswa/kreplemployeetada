@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
-import 'package:kreplemployee/app/presentation/pages/bookings/draft_bookings.dart';
-import 'package:kreplemployee/app/presentation/pages/bookings/history_booking.dart';
-import 'package:kreplemployee/app/presentation/pages/bookings/upcoming_booking.dart';
+import 'package:kreplemployee/app/presentation/screens/tourplan/approvedtour.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/createtourplanpage.dart';
+import 'package:kreplemployee/app/presentation/screens/tourplan/drafttour.dart';
+import 'package:kreplemployee/app/presentation/screens/tourplan/pendingtour.dart';
 import 'package:kreplemployee/app/presentation/widgets/animations/button_animation.dart';
 import 'package:kreplemployee/app/presentation/widgets/containers/primary_container.dart';
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
@@ -67,7 +67,7 @@ class TourPlanPage extends StatelessWidget {
                 child: const TabBar(
                   tabs: [
                     Tab(
-                      text: 'Recent',
+                      text: 'Pending',
                     ),
                     Tab(
                       text: 'Approved',
@@ -83,9 +83,9 @@ class TourPlanPage extends StatelessWidget {
                 child: TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    UpComingBookings(),
-                    HistoryBookings(),
-                    DraftBookings(),
+                    PendingTourPlan(),
+                    ApprovedTourPlan(),
+                    DraftTourPlan(),
                   ],
                 ),
               )

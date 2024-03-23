@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
 import 'package:kreplemployee/app/presentation/pages/home/components/search_field.dart';
+import 'package:kreplemployee/app/presentation/widgets/buttons/custom_text_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/primary_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/containers/primary_container.dart';
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
@@ -16,7 +17,8 @@ class OthersListPage extends StatefulWidget {
 class _OthersListPageState extends State<OthersListPage> {
   final TextEditingController _searchController = TextEditingController();
 
-  int? _selectedOtherIndex;
+  List<int> _selectedOtherIndexes = [];
+  List<Other> _selectedOthers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,36 @@ class _OthersListPageState extends State<OthersListPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomHeaderText(text: 'Others', fontSize: 18.sp),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomHeaderText(text: 'Others', fontSize: 18.sp),
+                      _selectedOtherIndexes.isNotEmpty
+                          ? CustomTextButton(
+                              onPressed: () {
+                                setState(() {
+                                  _selectedOtherIndexes.clear();
+                                });
+                              },
+                              text:
+                                  'Clear All (${_selectedOtherIndexes.length})',
+                            )
+                          : CustomTextButton(
+                              onPressed: () {
+                                setState(() {
+                                  // Clear the existing selected customer indexes
+                                  _selectedOtherIndexes.clear();
+                                  // Add all customer indexes to the selected list
+                                  for (int i = 0; i < others.length; i++) {
+                                    _selectedOtherIndexes.add(i);
+                                    _selectedOthers.add(others[i]);
+                                  }
+                                });
+                              },
+                              text: 'Select All',
+                            ),
+                    ],
+                  ),
                   SizedBox(height: 16.h),
                   ListView.separated(
                     shrinkWrap: true,
@@ -62,11 +93,16 @@ class _OthersListPageState extends State<OthersListPage> {
                       return OtherCard(
                         onTap: () {
                           setState(() {
-                            _selectedOtherIndex =
-                                _selectedOtherIndex == index ? null : index;
+                            if (_selectedOtherIndexes.contains(index)) {
+                              _selectedOtherIndexes.remove(index);
+                              _selectedOthers.remove(others[index]);
+                            } else {
+                              _selectedOtherIndexes.add(index);
+                              _selectedOthers.add(others[index]);
+                            }
                           });
                         },
-                        isSelected: _selectedOtherIndex == index,
+                        isSelected: _selectedOtherIndexes.contains(index),
                         other: others[index],
                       );
                     },
@@ -88,10 +124,12 @@ class _OthersListPageState extends State<OthersListPage> {
             SizedBox(height: 10.h),
             PrimaryButton(
               onTap: () {
-                if (_selectedOtherIndex != null) {
-                  Other selectedCustomer = others[_selectedOtherIndex!];
-                  print('Selected customer name: ${selectedCustomer.name}');
-                  Navigator.pop(context, selectedCustomer);
+                if (_selectedOtherIndexes.isNotEmpty) {
+                  print('Selected customers:');
+                  for (var customer in _selectedOthers) {
+                    print(customer.name);
+                  }
+                  Navigator.pop(context, _selectedOthers);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -101,7 +139,7 @@ class _OthersListPageState extends State<OthersListPage> {
                 }
               },
               text: 'Select',
-              color: _selectedOtherIndex != null
+              color: _selectedOtherIndexes.isNotEmpty
                   ? AppColors.kPrimary
                   : isDarkMode(context)
                       ? AppColors.kContentColor

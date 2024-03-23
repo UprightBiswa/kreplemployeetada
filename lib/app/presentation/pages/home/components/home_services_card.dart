@@ -3,11 +3,11 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
-import 'package:kreplemployee/app/data/model/services_model.dart';
-import 'package:kreplemployee/app/presentation/pages/categories/services_detail_view.dart';
+import 'package:kreplemployee/app/data/model/product_model.dart';
+import 'package:kreplemployee/app/presentation/pages/products/product_detail_view.dart';
 
 class HomeServicesCard extends StatelessWidget {
-  final ServicesModel service;
+  final ProductsModel service;
   const HomeServicesCard({required this.service, super.key});
 
   @override

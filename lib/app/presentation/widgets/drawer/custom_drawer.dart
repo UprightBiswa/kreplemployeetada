@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
 import 'package:kreplemployee/app/data/helper/controller/menucontroller.dart';
 import 'package:kreplemployee/app/logic/controllers/theme_controller.dart';
-import 'package:kreplemployee/app/presentation/pages/address/address_view.dart';
 import 'package:kreplemployee/app/presentation/pages/calendar/calendar_view.dart';
 import 'package:kreplemployee/app/presentation/pages/landing_pages/landing_pages.dart';
 import 'package:kreplemployee/app/presentation/pages/notifications/notification_view.dart';
@@ -52,7 +51,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               SizedBox(height: 50.h),
               SideMenu(
                 onPressed: () {
-                   menuController.setSelectedMenuIndex(0);
+                  menuController.setSelectedMenuIndex(0);
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
@@ -60,13 +59,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   });
                 },
                 icon: AppAssets.kCalendar,
-               isSelected: menuController.selectedMenuIndex.value == 0,
+                isSelected: menuController.selectedMenuIndex.value == 0,
                 text: 'Home',
               ),
               SizedBox(height: 5.h),
               SideMenu(
                 onPressed: () {
-                   menuController.setSelectedMenuIndex(1);
+                  menuController.setSelectedMenuIndex(1);
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
@@ -80,11 +79,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
               SizedBox(height: 5.h),
               SideMenu(
                 onPressed: () {
-                 menuController.setSelectedMenuIndex(2);
+                  menuController.setSelectedMenuIndex(2);
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
-                    Get.to(() => const AddressView());
                   });
                 },
                 icon: AppAssets.kAddress,
@@ -94,7 +92,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               SizedBox(height: 5.h),
               SideMenu(
                 onPressed: () {
-                 menuController.setSelectedMenuIndex(3);
+                  menuController.setSelectedMenuIndex(3);
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
@@ -108,7 +106,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               SizedBox(height: 5.h),
               SideMenu(
                 onPressed: () {
-                 menuController.setSelectedMenuIndex(4);
+                  menuController.setSelectedMenuIndex(4);
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
@@ -116,7 +114,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   });
                 },
                 icon: AppAssets.kOffers,
-               isSelected: menuController.selectedMenuIndex.value == 4,
+                isSelected: menuController.selectedMenuIndex.value == 4,
                 text: 'Offers',
               ),
               SizedBox(height: 5.h),
@@ -130,7 +128,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   });
                 },
                 icon: AppAssets.kSupport,
-               isSelected: menuController.selectedMenuIndex.value == 5,
+                isSelected: menuController.selectedMenuIndex.value == 5,
                 text: 'Support',
               ),
               SizedBox(height: 5.h),

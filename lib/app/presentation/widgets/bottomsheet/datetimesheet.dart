@@ -4,10 +4,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
 import 'package:kreplemployee/app/data/helper/datetimeformat/datetime_format.dart';
-import 'package:kreplemployee/app/data/helper/keys/date_time_format.dart';
-import 'package:kreplemployee/app/presentation/pages/categories/components/custom_calendar_card.dart';
-import 'package:kreplemployee/app/presentation/pages/categories/components/date_card.dart';
-import 'package:kreplemployee/app/presentation/pages/categories/components/time_select_card.dart';
+import 'package:kreplemployee/app/presentation/pages/menus/components/custom_calendar_card.dart';
+import 'package:kreplemployee/app/presentation/pages/menus/components/date_card.dart';
+import 'package:kreplemployee/app/presentation/pages/menus/components/time_select_card.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/custom_icon_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/primary_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
@@ -119,7 +118,7 @@ class _DateTimeSheetState extends State<DateTimeSheet> {
             },
             title: 'Time',
             subtitle: _selectedTime != null
-                ? '${DateTimeFormatHelper.formatTime(_selectedTime)} - ${DateTimeFormatHelper.formatTime(_selectedTime.add(const Duration(hours: 1)))}'
+                ? DateTimeFormatHelper.formatTime(_selectedTime)
                 : 'Select your Time',
             icon: AppAssets.kTime,
             color: AppColors.kLime,
