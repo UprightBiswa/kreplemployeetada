@@ -1,111 +1,118 @@
-
 import 'package:flutter/material.dart';
-//import 'package:krishajdealer/services/api/loginotp/verify_otp_responce.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthState with ChangeNotifier {
-  String _token = '';
-  String _customerName = '';
-  String _regionCode = '';
-  String _customerNumber = '';
-  List<String> _companyCodes = [];
-  //List<CompanyCode> _companyCodesdesc = [];
+  String _userType = '';
+  String _userCode = '';
+  String _employeeCode = '';
+  String _employeeName = '';
+  String _accessType = '';
+  String _validFrom = '';
+  String _validTo = '';
+  String _status = '';
 
-  String get token => _token;
-  String get customerName => _customerName;
-  String get regionCode => _regionCode;
-  String get customerNumber => _customerNumber;
-  List<String> get companyCodes => _companyCodes;
-  //List<CompanyCode> get companyCodesdesc => _companyCodesdesc;
+  String get userType => _userType;
+  String get userCode => _userCode;
+  String get employeeCode => _employeeCode;
+  String get employeeName => _employeeName;
+  String get accessType => _accessType;
+  String get validFrom => _validFrom;
+  String get validTo => _validTo;
+  String get status => _status;
 
   Future<void> setToken(
-    String newToken,
-    String newCustomerName,
-    String newRegionCode,
-    String newCustomerNumber,
-    List<String> newCompanyCodes,
-  //  List<CompanyCode> newCompanyCodesdesc,
+    String newUserType,
+    String newUserCode,
+    String newEmployeeCode,
+    String newEmployeeName,
+    String newAccessType,
+    String newValidFrom,
+    String newValidTo,
+    String newStatus,
   ) async {
-    _token = newToken;
-    _customerName = newCustomerName;
-    _regionCode = newRegionCode;
-    _customerNumber = newCustomerNumber;
-    _companyCodes = newCompanyCodes;
-   // _companyCodesdesc = newCompanyCodesdesc;
+    _userType = newUserType;
+    _userCode = newUserCode;
+    _employeeCode = newEmployeeCode;
+    _employeeName = newEmployeeName;
+    _accessType = newAccessType;
+    _validFrom = newValidFrom;
+    _validTo = newValidTo;
+    _status = newStatus;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', _token);
-    await prefs.setString('customerName', _customerName);
-    await prefs.setString('regionCode', _regionCode);
-    await prefs.setString('customerNumber', _customerNumber);
-    await prefs.setStringList('companyCodes', _companyCodes);
+    await prefs.setString('userType', _userType);
+    await prefs.setString('userCode', _userCode);
+    await prefs.setString('employeeCode', _employeeCode);
+    await prefs.setString('employeeName', _employeeName);
+    await prefs.setString('accessType', _accessType);
+    await prefs.setString('validFrom', _validFrom);
+    await prefs.setString('validTo', _validTo);
+    await prefs.setString('status', _status);
 
-    // final companyCodesdescJson = _companyCodesdesc
-    //     .map((companyCode) => json.encode(companyCode.toJson()))
-    //     .toList();
-    //await prefs.setStringList('companyCodesdesc', companyCodesdescJson);
+    print('Token saved: $_userType');
+    print('Customer Name saved: $_userCode');
+    print('Region Code saved: $_employeeCode');
+    print('Customer Number saved: $_employeeName');
+    print('Company Codes saved: $_accessType');
+    print('Company Codes saved: $_validFrom');
+    print('Company Codes saved: $_validTo');
+    print('Company Codes saved: $_status');
 
-    print('Token saved: $_token');
-    print('Customer Name saved: $_customerName');
-    print('Region Code saved: $_regionCode');
-    print('Customer Number saved: $_customerNumber');
-    print('Company Codes saved: $companyCodes');
-   // print('Company Codesdesc saved: $companyCodesdescJson');
     notifyListeners();
   }
 
-  Future<String?> getToken() async {
+  Future<String?> getUserType() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token');
+    return prefs.getString('userType');
   }
 
-  Future<String?> getCustomerName() async {
+  Future<String?> getUserCode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('customerName');
+    return prefs.getString('userCode');
   }
 
-  Future<String?> getRegionCode() async {
+  Future<String?> getEmployeeCode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('regionCode');
+    return prefs.getString('employeeCode');
   }
 
-  Future<String?> getCustomerNumnber() async {
+  Future<String?> getEmployeeName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('customerNumber');
+    return prefs.getString('employeeName');
   }
 
-  Future<List<String>?> getCompanyCode() async {
+  Future<String?> getAccessType() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getStringList('companyCodes');
+    return prefs.getString('accessType');
   }
 
-  // Future<List<CompanyCode>> getCompanyCodesdesc() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final companyCodesdescJson = prefs.getStringList('companyCodesdesc');
+  Future<String?> getValidFrom() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('validFrom');
+  }
 
-  //   if (companyCodesdescJson != null) {
-  //     print('Company Codesdesc saved: $companyCodesdescJson');
+  Future<String?> getValidTo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('validTo');
+  }
 
-  //     try {
-  //       // Convert JSON strings to CompanyCode objects
-  //       List<CompanyCode> companyCodes = companyCodesdescJson
-  //           .where((jsonString) => jsonString.isNotEmpty)
-  //           .map((jsonString) {
-  //         try {
-  //           return CompanyCode.fromJson(jsonDecode(jsonString));
-  //         } catch (e) {
-  //           print('Error decoding JSON string: $e');
-  //           return CompanyCode(companyCode: '', companyShortDescription: '');
-  //         }
-  //       }).toList();
+  Future<String?> getStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('status');
+  }
 
-  //       return companyCodes;
-  //     } catch (e) {
-  //       print('Error parsing JSON: $e');
-  //       return [];
-  //     }
-  //   } else {
-  //     return [];
-  //   }
-  // }
+  Future<void> clearToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userType');
+    await prefs.remove('userCode');
+    await prefs.remove('employeeCode');
+    await prefs.remove('employeeName');
+    await prefs.remove('accessType');
+    await prefs.remove('validFrom');
+    await prefs.remove('validTo');
+    await prefs.remove('status');
+
+    // Notify listeners after clearing data
+    notifyListeners();
+  }
 }

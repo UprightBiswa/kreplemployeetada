@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
@@ -63,10 +62,10 @@ class _OnboardingCardState extends State<OnboardingCard>
             width: double.maxFinite,
             fit: BoxFit.fitWidth,
           ),
-          SizedBox(height: 30.h),
+          SizedBox(height: 20.h),
           Text(
             widget.onboarding.title,
-            style: AppTypography.kBold32,
+            style: AppTypography.kBold24,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 12.h),

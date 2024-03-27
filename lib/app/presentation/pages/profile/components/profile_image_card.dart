@@ -18,7 +18,7 @@ class ProfileImageCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: AppSpacing.radiusThirty,
-            backgroundImage: AssetImage(AppAssets.kLogoBlue, ),
+            backgroundImage: AssetImage(AppAssets.kLogo, ),
           ),
           SizedBox(width: 10.w),
           Column(

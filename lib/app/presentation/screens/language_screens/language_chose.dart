@@ -40,7 +40,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
     // Check if it's the first-time installation
     bool isFirstInstallation = await checkFirstInstallation();
     // Check if the user is logged in
-    bool isLoggedIn = await Provider.of<AuthState>(context, listen: false).getToken() != null;
+    bool isLoggedIn = await Provider.of<AuthState>(context, listen: false).getUserCode() != null;
 
     if (isFirstInstallation) {
       Navigator.pushReplacement(

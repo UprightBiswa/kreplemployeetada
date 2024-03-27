@@ -13,4 +13,4 @@ class UserModel {
 }
 
 UserModel serviceProvider = UserModel(
-    id: '1', name: 'WestingHouse', profilePic: AppAssets.kServiceProvider);
+    id: '1', name: 'WestingHouse', profilePic: AppAssets.kMenu);

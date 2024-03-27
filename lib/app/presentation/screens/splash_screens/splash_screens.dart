@@ -9,13 +9,12 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-// import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
- State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 void showToast(String message, BuildContext context) {
@@ -192,7 +191,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   void navigateBasedOnLoginStatus() async {
     bool isLoggedIn =
-        (await Provider.of<AuthState>(context, listen: false).getToken())
+        (await Provider.of<AuthState>(context, listen: false).getUserCode())
                 ?.isNotEmpty ??
             false;
     if (isLoggedIn) {
@@ -221,8 +220,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
-    // Restore the system overlays when the screen is disposed
-    //SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     _controller.dispose();
     super.dispose();
   }
@@ -248,23 +245,15 @@ class _SplashScreenState extends State<SplashScreen>
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Your company logo image goes here
                       Transform.translate(
                         offset: Offset(0, _logoAnimation.value),
                         child: Image.asset(
-                          'assets/images/logo.png',
+                          AppAssets.kLogo,
                           width: 180,
                           height: 180,
                         ),
                       ),
-                      const SizedBox(height: 200),
-                      // const Text(
-                      //   'Krishaj Sarthi',
-                      //   style: TextStyle(
-                      //       color: AppColors.kPrimary,
-                      //       fontSize: 24,
-                      //       fontWeight: FontWeight.bold),
-                      // ),
+                      const SizedBox(height: 100),
                     ],
                   );
                 },

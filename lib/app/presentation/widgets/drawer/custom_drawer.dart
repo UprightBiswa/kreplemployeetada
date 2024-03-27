@@ -9,6 +9,7 @@ import 'package:kreplemployee/app/presentation/pages/landing_pages/landing_pages
 import 'package:kreplemployee/app/presentation/pages/notifications/notification_view.dart';
 import 'package:kreplemployee/app/presentation/pages/profile/components/profile_image_card.dart';
 import 'package:kreplemployee/app/presentation/pages/profile/profile_view.dart';
+import 'package:kreplemployee/app/presentation/pages/setting/setting_page.dart';
 import 'package:kreplemployee/app/presentation/pages/support/support_view.dart';
 import 'package:kreplemployee/app/presentation/screens/offers/offers_view.dart';
 import 'package:kreplemployee/app/presentation/widgets/drawer/side_menu.dart';
@@ -130,6 +131,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 icon: AppAssets.kSupport,
                 isSelected: menuController.selectedMenuIndex.value == 5,
                 text: 'Support',
+              ),
+              SizedBox(height: 5.h),
+              SideMenu(
+                onPressed: () {
+                  menuController.setSelectedMenuIndex(6);
+                  Future.delayed(const Duration(milliseconds: 500))
+                      .then((value) {
+                    Get.back();
+                    Get.to(() => const SettingsPage());
+                  });
+                },
+                icon: AppAssets.kOffers,
+                isSelected: menuController.selectedMenuIndex.value == 6,
+                text: 'Settings',
               ),
               SizedBox(height: 5.h),
               // SideMenu(

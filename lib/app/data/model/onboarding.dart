@@ -1,4 +1,3 @@
-
 import 'package:kreplemployee/app/data/constants/constants.dart';
 
 class Onboarding {
@@ -13,17 +12,17 @@ class Onboarding {
 List<Onboarding> onboardingList = [
   Onboarding(
       description:
-          'Lorem ipsum is a placeholder text commonly\nused to demonstrate the visual.',
+          'Manage your attendance, TADA expenses, reimbursement, make tour plans for client visits,\norder products for clients, and more!',
       image: AppAssets.kOnboardingFirst,
-      title: 'Beauty parlour\nat your home'),
+      title: 'Manage Your Tasks'),
   Onboarding(
       description:
-          'Lorem ipsum is a placeholder text commonly\nused to demonstrate the visual.',
+          'Stay connected with fellow employees, receive important updates and announcements, and collaborate efficiently!',
       image: AppAssets.kOnboardingSecond,
-      title: ' Plumber & expart\nnearby you'),
+      title: 'Connect with Colleagues'),
   Onboarding(
       description:
-          'Lorem ipsum is a placeholder text commonly\nused to demonstrate the visual.',
+          'Access all your essential tools and resources in one place, making your work more convenient and productive!',
       image: AppAssets.kOnboardingThird,
-      title: 'Professional home\ncleaning')
+      title: 'Access Tools and Resources')
 ];

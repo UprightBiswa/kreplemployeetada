@@ -31,19 +31,10 @@ class SupportView extends StatelessWidget {
                 onTap: () {
                   Get.to(() => const LiveChatView());
                 },
-                image: AppAssets.kLiveChat,
+                image: AppAssets.kLogo,
                 title: 'Live Chat',
                 subtitle: 'Chat time 9am- 9pm'),
             SizedBox(height: 16.h),
-            SupportCard(
-                image: AppAssets.kPhoneCall,
-                title: 'Phone Call',
-                subtitle: 'Calling hour 9am- 9pm'),
-            SizedBox(height: 16.h),
-            SupportCard(
-                image: AppAssets.kWhatsappCall,
-                title: 'WhatsApp Call',
-                subtitle: 'Calling hour 9am- 9pm'),
           ],
         ),
       ),

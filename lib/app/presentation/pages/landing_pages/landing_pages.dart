@@ -66,15 +66,16 @@ class LandingPageState extends State<LandingPage> {
                 content: Text('Press back again to exit'),
               ),
             );
-            return false;
+            return false; // Prevent the app from exiting
+          } else {
+            return true; // Allow the app to exit
           }
         } else {
           setState(() {
             _currentIndex = 0;
           });
-          return false;
+          return false; // Prevent the app from exiting
         }
-        return true;
       },
       child: Scaffold(
         key: scaffoldKey,
@@ -88,21 +89,54 @@ class LandingPageState extends State<LandingPage> {
               _currentIndex = index;
             });
           },
-          items: [
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               label: 'Home',
-              icon: SvgPicture.asset(AppAssets.kHome),
-              activeIcon: SvgPicture.asset(AppAssets.kActiveHome),
+              tooltip: 'Home',
+              icon: SvgPicture.asset(
+                AppAssets.kHome,
+                height: 24,
+                width: 24,
+              ),
+              activeIcon: SvgPicture.asset(
+                AppAssets.kHome,
+                height: 24,
+                width: 24,
+                colorFilter: const ColorFilter.mode(
+                  AppColors.kPrimary,
+                  BlendMode.srcIn,
+                ),
+              ),
             ),
             BottomNavigationBarItem(
               label: 'Products',
-              icon: SvgPicture.asset(AppAssets.kOrder),
-              activeIcon: SvgPicture.asset(AppAssets.kActiveOrder),
+              tooltip: 'Products',
+              icon: SvgPicture.asset(
+                AppAssets.kProduct,
+                height: 24,
+                width: 24,
+                colorFilter: const ColorFilter.mode(
+                  AppColors.kNeutral04,
+                  BlendMode.srcIn,
+                ),
+              ),
+              activeIcon: SvgPicture.asset(
+                AppAssets.kProduct,
+                height: 24,
+                width: 24,
+                colorFilter: const ColorFilter.mode(
+                  AppColors.kPrimary,
+                  BlendMode.srcIn,
+                ),
+              ),
             ),
             BottomNavigationBarItem(
               label: 'Notifications',
+              tooltip: 'Notifications',
               icon: SvgPicture.asset(
                 AppAssets.kNotification,
+                height: 24,
+                width: 24,
                 colorFilter: const ColorFilter.mode(
                   AppColors.kNeutral04,
                   BlendMode.srcIn,
@@ -110,6 +144,8 @@ class LandingPageState extends State<LandingPage> {
               ),
               activeIcon: SvgPicture.asset(
                 AppAssets.kNotification,
+                height: 24,
+                width: 24,
                 colorFilter: const ColorFilter.mode(
                   AppColors.kPrimary,
                   BlendMode.srcIn,

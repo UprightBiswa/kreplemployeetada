@@ -66,6 +66,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         CommonProviders.authStateProvider(),
+        CommonProviders.loginProvider(),
       ],
       child: ScreenUtilInit(
           designSize: const Size(375, 844),

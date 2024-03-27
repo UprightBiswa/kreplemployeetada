@@ -2,14 +2,8 @@ class AppAssets {
   // Images.
 
   // Icons.
-  static String kGoogle = 'assets/icons/google.svg';
-  static String kFacebook = 'assets/icons/facebook.svg';
-  static String kApple = 'assets/icons/apple.svg';
   static String kHome = 'assets/icons/home.svg';
-  static String kActiveHome = 'assets/icons/activeHome.svg';
-  static String kOrder = 'assets/icons/order.svg';
-  static String kActiveOrder = 'assets/icons/order-active.svg';
-
+  static String kProduct = 'assets/icons/Product.svg';
   static String kAdd = 'assets/icons/add.svg';
   static String kCall = 'assets/icons/call.svg';
   static String kCalendar = 'assets/icons/calendar.svg';
@@ -25,14 +19,16 @@ class AppAssets {
   static String kEdit = 'assets/icons/edit.svg';
   //Categories
   static String kTour = 'assets/icons/tour.svg';
-  static String kAppliance = 'assets/icons/appliance.svg';
-  static String kCleaning = 'assets/icons/cleaning.svg';
-  static String kPlumbing = 'assets/icons/plumbing.svg';
-  static String kElectronic = 'assets/icons/electronic.svg';
-  static String kShifting = 'assets/icons/shifting.svg';
-  static String kPaint = 'assets/icons/paint.svg';
-  static String kBeauty = 'assets/icons/beauty.svg';
-  static String kFacial = 'assets/icons/facial.svg';
+  static String kOrder = 'assets/icons/Order.svg';
+  static String kCart = 'assets/icons/Cart.svg';
+  static String kAgingreport = 'assets/icons/AgingReport.svg';
+  static String kSubmittedOrder = 'assets/icons/SubmittedOrder.svg';
+  static String kSalesAnalysis = 'assets/icons/SalesAnalysis.svg';
+  static String kLedger = 'assets/icons/Ledger.svg';
+  static String kCollectionReport = 'assets/icons/CollectionReport.svg';
+  static String kOrderDispatchStatus= 'assets/icons/OrderDispatchStatus.svg';
+  static String kWithBill = 'assets/icons/WithBill.svg';
+  static String kWithOutBill = 'assets/icons/WithoutBill.svg';
   static String kArrowDown = 'assets/icons/arrow_down.svg';
   static String kMenu = 'assets/icons/menu.svg';
   static String kBronzeBadge = 'assets/icons/bronze_badge.svg';
@@ -50,8 +46,6 @@ class AppAssets {
   static String kAddRounded = 'assets/icons/add_rounded.svg';
   static String kCurrentLocation = 'assets/icons/currentLocation.svg';
   static String kPromoCode = 'assets/icons/promo_code.svg';
-  static String kVisa = 'assets/images/visaCard.png';
-  static String kMasterCard = 'assets/images/masterCard.png';
   static String kScan = 'assets/icons/scan.svg';
   static String kPaid = 'assets/icons/paid.svg';
   static String kBooked = 'assets/icons/booked.svg';
@@ -60,48 +54,19 @@ class AppAssets {
   static String kOrderCancel = 'assets/icons/order_cancel.svg';
   static String kNoNotification = 'assets/images/no_notification.png';
   static String kChatMenu = 'assets/icons/chat_menu.svg';
-  static String kLiveChat = 'assets/icons/live_chat.png';
-  static String kPhoneCall = 'assets/icons/phone_call.png';
-  static String kWhatsappCall = 'assets/icons/whatsapp_call.png';
   static String kAttachment = 'assets/icons/attachment.svg';
   static String kEmoji = 'assets/icons/emoji.svg';
-  static String kMyCard = 'assets/icons/my_card.png';
-  static String kServiceProvider = 'assets/icons/service_provider.png';
   static String kSend = 'assets/icons/send.svg';
 
   // Images.
   static String kOnboardingFirst = 'assets/images/onboarding_first.png';
   static String kOnboardingSecond = 'assets/images/onboarding_second.png';
   static String kOnboardingThird = 'assets/images/onboarding_third.png';
-  static String kLogoBlue = 'assets/images/logo_blue.png';
   static String kProfilePic = 'assets/images/profileImage.jpg';
-  static String kCleaningService1 = 'assets/images/cleaning_service_1.png';
-  static String kCleaningService2 = 'assets/images/cleaning_service_2.png';
-  static String kCleaningService3 = 'assets/images/cleaning_service_3.jpg';
   static String kApplianceService1 = 'assets/images/appliance_service_1.png';
   static String kApplianceService2 = 'assets/images/appliance_service_2.png';
   static String kApplianceService3 = 'assets/images/appliance_service_3.png';
   static String kApplianceService4 = 'assets/images/appliance_service_4.png';
-  static String kBeautyService1 = 'assets/images/beauty_service_1.jpg';
-  static String kBeautyService2 = 'assets/images/beauty_service_2.jpg';
-  static String kPaintService1 = 'assets/images/paint_service_1.jpg';
-  static String kPaintService2 = 'assets/images/paint_service_2.jpg';
-  static String kPaintService3 = 'assets/images/paint_service_3.jpg';
-  static String kPlumbService1 = 'assets/images/plumb_service_1.jpg';
-  static String kPlumbService2 = 'assets/images/plumb_service_2.jpg';
-  static String kPlumbService3 = 'assets/images/plumb_service_3.jpg';
-  static String kPlumbService4 = 'assets/images/plumb_service_4.jpg';
-  static String kElectronicService1 = 'assets/images/electronic_service_1.jpg';
-  static String kElectronicService2 = 'assets/images/electronic_service_2.jpg';
-  static String kElectronicService3 = 'assets/images/electronic_service_3.jpg';
-  static String kElectronicService4 = 'assets/images/electronic_service_4.jpg';
-  static String kShiftingService1 = 'assets/images/shifting_service_3.jpg';
-  static String kShiftingService2 = 'assets/images/shifting_service_4.jpg';
-  static String kMenSalonService1 = 'assets/images/menSaloon_service_1.jpg';
-  static String kMenSalonService2 = 'assets/images/menSaloon_service_2.jpg';
-  static String kMenSalonService3 = 'assets/images/menSaloon_service_3.jpg';
-  static String kMenSalonService4 = 'assets/images/menSaloon_service_4.jpg';
-  static String kMenSalonService5 = 'assets/images/menSaloon_service_5.jpg';
   static String kReferFriend = 'assets/images/referFriend.png';
   static String kRewards = 'assets/images/rewards.png';
   static String kLogo = 'assets/images/app_icon.png';
