@@ -1,7 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
+import 'package:kreplemployee/app/data/model/user_details_model.dart';
 import 'package:kreplemployee/app/data/repository/auth/auth_token.dart';
+import 'package:kreplemployee/app/logic/provider/loginProvider/login_provider.dart';
 import 'package:kreplemployee/app/presentation/pages/landing_pages/landing_pages.dart';
 import 'package:kreplemployee/app/presentation/screens/auth/sign_in.dart';
 import 'package:kreplemployee/app/presentation/screens/language_screens/language_chose.dart';
@@ -35,13 +40,18 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _logoAnimation;
   // final AppInfoProvider _newAppinfoProvider = AppInfoProvider();
   String appVersion = "";
+  late LoginProvider loginProvider;
+  UserDetails? userDetails;
+
   @override
   void initState() {
     super.initState();
+    loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    getUserInfo();
     getAppVersion();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 5),
     );
 
     _logoAnimation = Tween<double>(begin: -100, end: 0).animate(
@@ -56,6 +66,7 @@ class _SplashScreenState extends State<SplashScreen>
         bool isFirstLaunch = await checkFirstLaunch();
         if (isFirstLaunch) {
           Navigator.pushReplacement(
+            // ignore: duplicate_ignore
             context,
             MaterialPageRoute(builder: (context) => const LanguageScreen()),
           );
@@ -67,6 +78,43 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
+  Future<void> getUserInfo() async {
+    try {
+      String? userCode = await AuthState().getUserCode();
+      if (mounted) {
+        if (userCode != null && userCode.isNotEmpty) {
+          setState(() async {
+            userDetails = await fetchUserDetails(userCode);
+          });
+          if (kDebugMode) {
+            print('details: $userDetails');
+          }
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error: $e');
+      }
+      setState(() {
+        userDetails = null;
+      });
+    }
+  }
+
+  Future<UserDetails?> fetchUserDetails(String userCode) async {
+    try {
+      await loginProvider.getUserInfo(userCode, context);
+
+      // Return the fetched UserDetails object
+      return loginProvider.userDetails;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error fetching user details: $e');
+      }
+      return null;
+    }
+  }
+
   Future<void> getAppVersion() async {
     try {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -75,9 +123,13 @@ class _SplashScreenState extends State<SplashScreen>
           appVersion = packageInfo.version;
         });
       }
-      print('app version: $appVersion');
+      if (kDebugMode) {
+        print('app version: $appVersion');
+      }
     } catch (e) {
-      print('Error getting app version: $e');
+      if (kDebugMode) {
+        print('Error getting app version: $e');
+      }
       setState(() {
         appVersion = '';
       });
@@ -189,16 +241,32 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
+  // void navigateBasedOnLoginStatus() async {
+  //   bool isLoggedIn =
+  //       (await Provider.of<AuthState>(context, listen: false).getUserCode())
+  //               ?.isNotEmpty ??
+  //           false;
+  //   if (isLoggedIn) {
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => LandingPage(),
+  //       ),
+  //     );
+  //   } else {
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => const SignIn()),
+  //     );
+  //   }
+  // }
+
   void navigateBasedOnLoginStatus() async {
-    bool isLoggedIn =
-        (await Provider.of<AuthState>(context, listen: false).getUserCode())
-                ?.isNotEmpty ??
-            false;
-    if (isLoggedIn) {
+    if (userDetails != null) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const LandingPage(),
+          builder: (context) => LandingPage(userDetails: userDetails!),
         ),
       );
     } else {
@@ -218,16 +286,23 @@ class _SplashScreenState extends State<SplashScreen>
     return isFirstLaunch;
   }
 
+// Initialize the provider here
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    loginProvider = Provider.of<LoginProvider>(context, listen: false);
+  }
+
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
-  bool isDarkMode(BuildContext context) =>
-      Theme.of(context).brightness == Brightness.dark;
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode(BuildContext context) =>
+        Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor:
           isDarkMode(context) ? AppColors.kDarkBackground : AppColors.kWhite,

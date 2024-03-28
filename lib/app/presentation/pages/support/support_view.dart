@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
 import 'package:kreplemployee/app/presentation/pages/support/components/support_card.dart';
 import 'package:kreplemployee/app/presentation/pages/support/live_chat_view.dart';
-import 'package:kreplemployee/app/presentation/widgets/drawer/custom_drawer.dart';
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
 
 class SupportView extends StatelessWidget {
@@ -19,7 +18,6 @@ class SupportView extends StatelessWidget {
           style: AppTypography.kMedium15.copyWith(color: AppColors.kGrey),
         ),
       ),
-      drawer: const CustomDrawer(),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(

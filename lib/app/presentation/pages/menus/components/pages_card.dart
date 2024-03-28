@@ -14,7 +14,7 @@ import 'package:kreplemployee/app/presentation/screens/ledger_screens/ledgerPage
 import 'package:kreplemployee/app/presentation/screens/order_dspatch_status_screens/OrderDispatchStatusPage.dart';
 import 'package:kreplemployee/app/presentation/screens/order_screens/order_page.dart';
 import 'package:kreplemployee/app/presentation/screens/sales_analysis_screens/SalesAnalysisPage.dart';
-import 'package:kreplemployee/app/presentation/screens/submitted_order_screens/SubmittedOrderPage.dart';
+import 'package:kreplemployee/app/presentation/screens/submitted_order_screens/submitted_order_page.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/tourplanpage.dart';
 import 'package:kreplemployee/app/presentation/widgets/animations/button_animation.dart';
 

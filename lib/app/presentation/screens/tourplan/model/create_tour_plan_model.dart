@@ -1,5 +1,5 @@
 import 'package:kreplemployee/app/data/constants/constants.dart';
-import 'package:kreplemployee/app/presentation/screens/tourplan/components/add_cutomer_visit_list.dart';
+import 'package:kreplemployee/app/data/model/customer_model.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/components/add_others_visit_list.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/components/add_purpose_list.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/components/add_village_visit_list.dart';
@@ -37,7 +37,7 @@ class CreateTourPlanModel {
   String toString() {
     return '''
     Selected Tour Type: $tourType
-   Selected Objects: ${selectedObjects?.map((obj) => obj.toString()).toList()} // Change here
+    Selected Objects: ${selectedObjects?.map((obj) => obj.toString()).toList()} // Change here
     Selected  Purpose: ${selectedPurpose?.map((purpose) => purpose.name).toList()}
     Selected Start Date: $selectedStartDate
     Selected End Date: $selectedEndDate
@@ -52,13 +52,19 @@ class CreateTourPlanModel {
 // Dummy data for customers
 List<Customer> dummyCustomers = [
   Customer(
-      name: 'John Doe',
-      description: 'Customer description',
-      image: AppAssets.kLogo),
+    name: 'John Doe',
+    description: 'Customer description...',
+    image: AppAssets.kLogo,
+    customerNumber: '0001105343',
+    companyCode: '1000',
+  ),
   Customer(
-      name: 'Jane Smith',
-      description: 'Customer description',
-      image: AppAssets.kLogo),
+    name: 'Jane Smith',
+    description: 'Customer description...',
+    image: AppAssets.kLogo,
+    customerNumber: '0001105344',
+    companyCode: '1001',
+  ),
 ];
 
 // Dummy data for villages

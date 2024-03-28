@@ -17,18 +17,27 @@ class CustomLoadingWidget extends StatelessWidget {
         children: [
           const CircularProgressIndicator(),
           const SizedBox(height: 16.0),
-          Material(
-            color: Colors.transparent,
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],
       ),
     );
   }
+}
+
+void showCustomLoadingDialog(BuildContext context, String text) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => Dialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      child: CustomLoadingWidget(text: text),
+    ),
+  );
 }

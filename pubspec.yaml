@@ -60,6 +60,7 @@ dependencies:
   sms_autofill: ^2.3.1
   dio: ^5.4.2
   babstrap_settings_screen: ^0.1.6
+  month_picker_dialog: ^2.11.1
 
 dev_dependencies:
   flutter_test:

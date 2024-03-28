@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
+import 'package:kreplemployee/app/data/model/user_details_model.dart';
 import 'package:kreplemployee/app/logic/provider/loginProvider/login_provider.dart';
 import 'package:kreplemployee/app/presentation/pages/landing_pages/landing_pages.dart';
 import 'package:kreplemployee/app/presentation/screens/auth/components/auth_field.dart';
@@ -40,7 +41,7 @@ class _SignInState extends State<SignIn> {
   final FocusNode _pinFocusNode = FocusNode();
   bool isOtpVisible = false;
   late LoginProvider loginProvider;
-
+  UserDetails? userDetails;
   @override
   void initState() {
     super.initState();
@@ -104,8 +105,11 @@ class _SignInState extends State<SignIn> {
           await loginProvider.getUserInfo(username, context);
 
           if (loginProvider.userDetailsResponse != null &&
-              loginProvider.userDetailsResponse!.success) {
-            Get.offAll(() => const LandingPage());
+              loginProvider.userDetailsResponse!.success && loginProvider.userDetails != null) {
+            setState(() {
+              userDetails = loginProvider.userDetails!;
+            });
+            Get.offAll(() => LandingPage(userDetails: userDetails!));
           } else {
             // Display an error message if OTP request failed
             final errorMessage = loginProvider.userDetailsResponse != null

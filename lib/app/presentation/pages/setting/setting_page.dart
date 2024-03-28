@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
+import 'package:kreplemployee/app/data/model/user_details_model.dart';
 import 'package:kreplemployee/app/data/repository/auth/auth_token.dart';
 import 'package:kreplemployee/app/presentation/pages/profile/profile_view.dart';
 import 'package:kreplemployee/app/presentation/pages/setting/app_version.dart';
@@ -20,7 +21,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  final UserDetails userDetails;
+  const SettingsPage({
+    super.key,
+    required this.userDetails,
+  });
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -266,7 +271,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: "Profile",
                 subtitle: "Tap to view your profile",
                 onTap: () {
-                  Get.to(() => const ProfileView());
+                  Get.to(() => ProfileView(userDetails: widget.userDetails));
                 },
               ),
             ),

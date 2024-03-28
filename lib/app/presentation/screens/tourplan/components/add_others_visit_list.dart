@@ -17,8 +17,8 @@ class OthersListPage extends StatefulWidget {
 class _OthersListPageState extends State<OthersListPage> {
   final TextEditingController _searchController = TextEditingController();
 
-  List<int> _selectedOtherIndexes = [];
-  List<Other> _selectedOthers = [];
+  final List<int> _selectedOtherIndexes = [];
+  final List<Other> _selectedOthers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +64,7 @@ class _OthersListPageState extends State<OthersListPage> {
                               onPressed: () {
                                 setState(() {
                                   _selectedOtherIndexes.clear();
+                                  _selectedOthers.clear();
                                 });
                               },
                               text:

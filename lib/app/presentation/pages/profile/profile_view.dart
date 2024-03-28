@@ -1,36 +1,28 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
+import 'package:kreplemployee/app/data/model/user_details_model.dart';
+import 'package:kreplemployee/app/presentation/pages/profile/components/profile_field.dart';
 import 'package:kreplemployee/app/presentation/pages/profile/components/profile_image_card.dart';
-import 'package:kreplemployee/app/presentation/screens/auth/components/auth_field.dart';
+import 'package:kreplemployee/app/presentation/pages/profile/profile_edit.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/custom_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/containers/primary_container.dart';
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
+  final UserDetails userDetails;
+
+  const ProfileView({
+    Key? key,
+    required this.userDetails,
+  }) : super(key: key);
 
   @override
   State<ProfileView> createState() => _ProfileViewState();
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _genderController = TextEditingController();
-  final TextEditingController _dobController = TextEditingController();
-
-  @override
-  void initState() {
-    _phoneController.text = '1234567898';
-    _emailController.text = 'johndoe@gmail.com';
-    _genderController.text = 'Male';
-    _dobController.text = '06/11/1998';
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     bool isDarkMode(BuildContext context) =>
@@ -50,7 +42,9 @@ class _ProfileViewState extends State<ProfileView> {
                 const CustomHeaderText(text: 'Profile'),
                 const Spacer(),
                 CustomButton(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => ProfileEdit(userDetails: widget.userDetails));
+                  },
                   icon: AppAssets.kEdit,
                   text: 'Edit Profile',
                 )
@@ -58,74 +52,66 @@ class _ProfileViewState extends State<ProfileView> {
             ),
             SizedBox(height: 21.h),
             PrimaryContainer(
-                child: ProfileImageCard(
-              onTap: null,
-              textColor: isDarkMode(context) ? AppColors.kWhite : Colors.black,
-            )),
+              child: ProfileImageCard(
+                onTap: null,
+                textColor:
+                    isDarkMode(context) ? AppColors.kWhite : Colors.black,
+                userDetails: widget.userDetails,
+              ),
+            ),
             SizedBox(height: 16.h),
             PrimaryContainer(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Phone Number', style: AppTypography.kMedium15),
-                SizedBox(height: 8.h),
-                // Number Field.
-                Container(
-                  decoration: BoxDecoration(
-                      color: isDarkMode(context)
-                          ? AppColors.kContentColor
-                          : AppColors.kInput,
-                      borderRadius:
-                          BorderRadius.circular(AppSpacing.radiusTen)),
-                  child: Row(
-                    children: [
-                      // CountryPicker(
-                      //   callBackFunction:
-                      //       (String name, String dialCode, String flag) {},
-                      // ),
-                      Expanded(
-                          child: Padding(
-                        padding: EdgeInsets.only(top: 2.h),
-                        child: AuthField(
-                          controller: _phoneController,
-                          hintText: 'Phone Number',
-                          keyboardType: TextInputType.number,
-                          padding: EdgeInsets.symmetric(horizontal: 5.w),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            FilteringTextInputFormatter.deny(
-                                RegExp(r'^0[0-9]*$'))
-                          ],
-                        ),
-                      )),
-                    ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ProfileField(
+                    label: 'User Type',
+                    value: widget.userDetails.userType,
+                    icon: Icons.code,
                   ),
-                ),
-                SizedBox(height: 24.h),
-                Text('Email', style: AppTypography.kMedium15),
-                SizedBox(height: 8.h),
-                AuthField(
-                  controller: _emailController,
-                  hintText: 'Email',
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                SizedBox(height: 24.h),
-                Text('Gender', style: AppTypography.kMedium15),
-                SizedBox(height: 8.h),
-                AuthField(
-                  controller: _genderController,
-                  hintText: 'Gender',
-                ),
-                SizedBox(height: 24.h),
-                Text('Date of Birth', style: AppTypography.kMedium15),
-                SizedBox(height: 8.h),
-                AuthField(
-                  controller: _dobController,
-                  hintText: '06/11/1998',
-                  keyboardType: TextInputType.datetime,
-                ),
-              ],
-            )),
+                  ProfileField(
+                    label: 'User Code',
+                    value: widget.userDetails.userCode,
+                    icon: Icons.code,
+                  ),
+                  ProfileField(
+                    label: 'Company Code',
+                    value: widget.userDetails.companyCode,
+                    icon: Icons.code,
+                  ),
+                  ProfileField(
+                    label: 'Employee Code',
+                    icon: Icons.code,
+                    value: widget.userDetails.employeeCode,
+                  ),
+                  ProfileField(
+                    label: 'Employee Name',
+                    icon: Icons.code,
+                    value: widget.userDetails.employeeName,
+                  ),
+                  ProfileField(
+                    label: 'Access Type',
+                    icon: Icons.code,
+                    value: widget.userDetails.accessType,
+                  ),
+                  ProfileField(
+                    label: 'Valid From',
+                    icon: Icons.code,
+                    value: widget.userDetails.validFrom,
+                  ),
+                  ProfileField(
+                    label: 'Valid To',
+                    icon: Icons.code,
+                    value: widget.userDetails.validTo,
+                  ),
+                  ProfileField(
+                    label: 'Status',
+                    icon: Icons.code,
+                    value: widget.userDetails.status,
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: 250.h),
           ],
         ),

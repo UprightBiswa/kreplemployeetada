@@ -34,8 +34,7 @@ class SearchButton extends StatelessWidget {
                 buttonText ?? 'Search',
                 style: isDarkMode(context)
                     ? AppTypography.kMedium12.copyWith(color: AppColors.kWhite)
-                    : AppTypography.kMedium12
-                        .copyWith(color: AppColors.kPrimary),
+                    : AppTypography.kMedium12.copyWith(color: AppColors.kGrey),
               ),
             ),
             ButtonAnimation(

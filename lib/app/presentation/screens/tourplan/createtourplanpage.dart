@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
+import 'package:kreplemployee/app/data/model/customer_model.dart';
 import 'package:kreplemployee/app/data/model/tour_type_model.dart';
 import 'package:kreplemployee/app/presentation/pages/checkout/components/checkout_custom_card.dart';
 import 'package:kreplemployee/app/presentation/screens/tourplan/components/add_cutomer_visit_list.dart';
@@ -110,7 +111,9 @@ class _CreateTourPlanPageState extends State<CreateTourPlanPage> {
                         onTap: () async {
                           final selectedCustomers =
                               await Get.to<List<Customer>?>(
-                            () => const CustomerListPage(),
+                            () => const CustomerListPage(
+                              isMultiSelection: true,
+                            ),
                           );
                           if (selectedCustomers != null &&
                               selectedCustomers.isNotEmpty) {
@@ -289,6 +292,7 @@ class _CreateTourPlanPageState extends State<CreateTourPlanPage> {
       ),
       bottomSheet: SaveTourSheet(
         bookText: 'Save Tour',
+        draftText: 'Save Draft',
         saveCallback: () {
           saveTour();
         },

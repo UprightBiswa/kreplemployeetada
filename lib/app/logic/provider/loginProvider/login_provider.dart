@@ -22,18 +22,14 @@ class LoginProvider extends ChangeNotifier {
   UserDetailsResponse? _userDetailsResponse;
   UserDetailsResponse? get userDetailsResponse => _userDetailsResponse;
 
+  UserDetails? _userDetails;
+  UserDetails? get userDetails => _userDetails;
   Future<void> requestOTP(String username, BuildContext context) async {
     try {
       _isLoading = true;
       notifyListeners();
 
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const CustomLoadingWidget(
-          text: 'Requesting OTP...',
-        ),
-      );
+      showCustomLoadingDialog(context, 'Requesting OTP...');
 
       final response = await _loginRepository.requestOTP(username);
       _otpRequest = OTPRequest.fromJson(response);
@@ -76,13 +72,7 @@ class LoginProvider extends ChangeNotifier {
       _isLoading = true;
       notifyListeners();
 
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const CustomLoadingWidget(
-          text: 'Verifying OTP...',
-        ),
-      );
+      showCustomLoadingDialog(context, 'Verifying OTP...');
 
       final response = await _loginRepository.verifyOTP(username, otp);
       _loginResponse = VerifyOTPResponse.fromJson(response);
@@ -120,13 +110,7 @@ class LoginProvider extends ChangeNotifier {
       _isLoading = true;
       notifyListeners();
 
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const CustomLoadingWidget(
-          text: 'Fetching User Info...',
-        ),
-      );
+      //showCustomLoadingDialog(context, 'Fetching Data...');
 
       final response = await _loginRepository.getUserInfo(username);
       _userDetailsResponse = UserDetailsResponse.fromJson(response);
@@ -135,19 +119,19 @@ class LoginProvider extends ChangeNotifier {
       notifyListeners();
 
       // ignore: use_build_context_synchronously
-      Navigator.of(context).pop();
+      //Navigator.of(context).pop();
 
       if (_userDetailsResponse!.success) {
-        final userDetails = _userDetailsResponse!.data!;
+        _userDetails = _userDetailsResponse!.data!;
         AuthState().setToken(
-          userDetails.userType,
-          userDetails.userCode,
-          userDetails.employeeCode,
-          userDetails.employeeName,
-          userDetails.accessType,
-          userDetails.validFrom,
-          userDetails.validTo,
-          userDetails.status,
+          _userDetails!.userType,
+          _userDetails!.userCode,
+          _userDetails!.employeeCode,
+          _userDetails!.employeeName,
+          _userDetails!.accessType,
+          _userDetails!.validFrom,
+          _userDetails!.validTo,
+          _userDetails!.status,
         );
       } else {
         // ignore: use_build_context_synchronously
@@ -163,7 +147,8 @@ class LoginProvider extends ChangeNotifier {
       // ignore: use_build_context_synchronously
       ToastService.show(context, 'Error fetching user info: $error');
 
-      Navigator.of(context).pop();
+      // ignore: use_build_context_synchronously
+      //Navigator.of(context).pop();
     }
   }
 }

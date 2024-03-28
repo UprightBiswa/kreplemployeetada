@@ -17,8 +17,8 @@ class VillageListPage extends StatefulWidget {
 class _VillageListPageState extends State<VillageListPage> {
   final TextEditingController _searchController = TextEditingController();
 
-  List<int> _selectedVillageIndexes = [];
-  List<Village> _selectedVillages = [];
+  final List<int> _selectedVillageIndexes = [];
+  final List<Village> _selectedVillages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class _VillageListPageState extends State<VillageListPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomHeaderText(text: 'Villages', fontSize: 18.sp),
                       _selectedVillageIndexes.isNotEmpty
@@ -64,6 +64,7 @@ class _VillageListPageState extends State<VillageListPage> {
                               onPressed: () {
                                 setState(() {
                                   _selectedVillageIndexes.clear();
+                                  _selectedVillages.clear();
                                 });
                               },
                               text:
@@ -84,7 +85,6 @@ class _VillageListPageState extends State<VillageListPage> {
                               text: 'Select All',
                             ),
                     ],
-
                   ),
                   SizedBox(height: 16.h),
                   ListView.separated(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
+import 'package:kreplemployee/app/data/model/user_details_model.dart';
+import 'package:kreplemployee/app/data/repository/auth/auth_token.dart';
 import 'package:kreplemployee/app/presentation/pages/products/products_view.dart';
 import 'package:kreplemployee/app/presentation/pages/home/components/home_appbar.dart';
 import 'package:kreplemployee/app/presentation/pages/home/home_view.dart';
@@ -8,7 +10,11 @@ import 'package:kreplemployee/app/presentation/pages/notifications/notification_
 import 'package:kreplemployee/app/presentation/widgets/drawer/custom_drawer.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({Key? key}) : super(key: key);
+  final UserDetails? userDetails;
+  const LandingPage({
+    Key? key,
+    this.userDetails,
+  }) : super(key: key);
 
   @override
   State<LandingPage> createState() => LandingPageState();
@@ -18,11 +24,21 @@ class LandingPageState extends State<LandingPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
   DateTime? currentBackPressTime;
+  UserDetails? userDetails;
+  late String? username;
+  final AuthState authState = AuthState();
+
+  @override
+  void initState() {
+    super.initState();
+    userDetails = widget.userDetails;
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> pages = [
-      const HomeView(),
-      const BookingsView(),
+      HomeView(userDetails: userDetails!),
+      BookingsView(userDetails: userDetails!),
       const NotificationView(),
     ];
     List<PreferredSizeWidget> appBarList = [
@@ -33,6 +49,7 @@ class LandingPageState extends State<LandingPage> {
           onLeadingPressed: () {
             scaffoldKey.currentState?.openDrawer();
           },
+          userDetails: userDetails!,
         ),
       ),
       PreferredSize(
@@ -42,6 +59,7 @@ class LandingPageState extends State<LandingPage> {
           onLeadingPressed: () {
             scaffoldKey.currentState?.openDrawer();
           },
+          userDetails: userDetails!,
         ),
       ),
       PreferredSize(
@@ -51,9 +69,11 @@ class LandingPageState extends State<LandingPage> {
           onLeadingPressed: () {
             scaffoldKey.currentState?.openDrawer();
           },
+          userDetails: userDetails!,
         ),
       ),
     ];
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         if (_currentIndex == 0) {
@@ -81,7 +101,9 @@ class LandingPageState extends State<LandingPage> {
         key: scaffoldKey,
         appBar: appBarList[_currentIndex],
         body: pages[_currentIndex],
-        drawer: const CustomDrawer(),
+        drawer: CustomDrawer(
+          userDetails: userDetails!,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (index) {

@@ -853,6 +853,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  month_picker_dialog:
+    dependency: "direct main"
+    description:
+      name: month_picker_dialog
+      sha256: "4506f8e42c18e592f1652db9c6466abee4241d9e3f5b20ca798d9798fd29d9c6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.11.1"
   nested:
     dependency: transitive
     description:
@@ -1065,10 +1073,10 @@ packages:
     dependency: "direct main"
     description:
       name: provider
-      sha256: "9a96a0a19b594dbc5bf0f1f27d2bc67d5f95957359b461cd9feb44ed6ae75096"
+      sha256: c8a055ee5ce3fd98d6fc872478b03823ffdb448699c6ebdbbc71d59b596fd48c
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.1"
+    version: "6.1.2"
   rxdart:
     dependency: transitive
     description:

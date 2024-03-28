@@ -1,13 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
+import 'package:kreplemployee/app/data/model/user_details_model.dart';
 import 'package:kreplemployee/app/data/repository/auth/auth_token.dart';
+import 'package:kreplemployee/app/logic/provider/loginProvider/login_provider.dart';
 import 'package:kreplemployee/app/presentation/pages/landing_pages/landing_pages.dart';
 import 'package:kreplemployee/app/presentation/screens/auth/sign_in.dart';
 import 'package:kreplemployee/app/presentation/screens/onboarding_screens/onboarding_screen.dart';
 import 'package:kreplemployee/classes/language.dart';
 import 'package:kreplemployee/classes/language_constrants.dart';
 import 'package:kreplemployee/main.dart';
-
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,16 +17,23 @@ class LanguageScreen extends StatefulWidget {
   const LanguageScreen({super.key});
 
   @override
-  _LanguageScreenState createState() => _LanguageScreenState();
+  State<LanguageScreen> createState() => _LanguageScreenState();
 }
 
 class _LanguageScreenState extends State<LanguageScreen> {
   List<Language> languageList = Language.languageList();
   Language? selectedLanguage;
+  late LoginProvider loginProvider;
+  
+
+  @override
+  void initState() {
+    super.initState();
+    loginProvider = Provider.of<LoginProvider>(context, listen: false);
+  }
 
   void navigateToOnboarding() async {
     if (selectedLanguage == null) {
-      // Show a snackbar if no language is selected
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Please select a language."),
@@ -33,14 +42,10 @@ class _LanguageScreenState extends State<LanguageScreen> {
       return;
     }
 
-    // Set the app's locale based on the selected language
     Locale locale = await setLocale(selectedLanguage!.languageCode);
     MyApp.setLocale(context, locale);
 
-    // Check if it's the first-time installation
     bool isFirstInstallation = await checkFirstInstallation();
-    // Check if the user is logged in
-    bool isLoggedIn = await Provider.of<AuthState>(context, listen: false).getUserCode() != null;
 
     if (isFirstInstallation) {
       Navigator.pushReplacement(
@@ -48,18 +53,41 @@ class _LanguageScreenState extends State<LanguageScreen> {
         MaterialPageRoute(builder: (context) => const OnboardingScreen()),
       );
     } else {
-      if (isLoggedIn) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const LandingPage()),
-        );
+      String? userCode = await AuthState().getUserCode();
+      if (userCode != null && userCode.isNotEmpty) {
+        UserDetails? userDetails = await fetchUserDetails(userCode);
+        if (userDetails != null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LandingPage(userDetails: userDetails),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const SignIn()),
+          );
+        }
       } else {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const SignIn()),
         );
       }
+    }
+  }
+
+  Future<UserDetails?> fetchUserDetails(String userCode) async {
+    try {
+      await loginProvider.getUserInfo(userCode, context);
+      return loginProvider.userDetails;
+    } catch (e) {
+      
+      if (kDebugMode) {
+        print('Error fetching user details: $e');
+      }
+      return null;
     }
   }
 
@@ -130,9 +158,10 @@ class _LanguageScreenState extends State<LanguageScreen> {
                                         setState(() {
                                           selectedLanguage = value;
                                         });
-                                        // Debug print statements
-                                        print(
-                                            'Selected language changed to: ${selectedLanguage?.name}');
+                                        if (kDebugMode) {
+                                          print(
+                                              'Selected language changed to: ${selectedLanguage?.name}');
+                                        }
                                       },
                                       activeColor: AppColors.kPrimary,
                                     ),

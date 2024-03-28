@@ -3,15 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
+import 'package:kreplemployee/app/data/model/user_details_model.dart';
 import 'package:kreplemployee/app/presentation/pages/profile/profile_view.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onLeadingPressed;
+  final UserDetails userDetails;
   const HomeAppBar({
     super.key,
     required this.title,
     this.onLeadingPressed,
+    required this.userDetails,
   });
 
   @override
@@ -39,7 +42,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         InkWell(
           onTap: () {
-            Get.to(() => const ProfileView());
+            Get.to(() => ProfileView(userDetails: userDetails));
           },
           child: Row(
             children: [
@@ -50,7 +53,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   Text('Profile',
                       style: AppTypography.kMedium10
                           .copyWith(color: AppColors.kWarning)),
-                  Text('Krepl Employee',
+                  Text(userDetails.employeeName,
                       style: AppTypography.kLight8
                           .copyWith(color: AppColors.kGrey))
                 ],

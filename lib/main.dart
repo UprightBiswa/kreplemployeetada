@@ -67,6 +67,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         CommonProviders.authStateProvider(),
         CommonProviders.loginProvider(),
+        CommonProviders.submittedOrderProvider(),
       ],
       child: ScreenUtilInit(
           designSize: const Size(375, 844),

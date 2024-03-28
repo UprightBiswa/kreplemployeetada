@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
 import 'package:kreplemployee/app/data/model/product_model.dart';
+import 'package:kreplemployee/app/data/model/user_details_model.dart';
 import 'package:kreplemployee/app/presentation/pages/products/components/search_button.dart';
 import 'package:kreplemployee/app/presentation/pages/home/components/home_services_card.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/custom_button.dart';
@@ -9,8 +10,10 @@ import 'package:kreplemployee/app/presentation/widgets/containers/primary_contai
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
 
 class BookingsView extends StatefulWidget {
+  final UserDetails userDetails;
   const BookingsView({
     super.key,
+    required this.userDetails,
   });
 
   @override
@@ -41,10 +44,10 @@ class _BookingsViewState extends State<BookingsView> {
                   Text('Hello Krepl Employee 👋',
                       style: AppTypography.kMedium14
                           .copyWith(color: AppColors.kGrey)),
-                  SizedBox(height: 4.h),
-                  Text('What you are looking for today',
-                      style: AppTypography.kBold32),
                   SizedBox(height: 14.h),
+                  // Text('What you are looking for today',
+                  //     style: AppTypography.kBold32),
+                  // SizedBox(height: 14.h),
                   const SearchButton(
                     buttonText: 'Search for products, brands and more',
                   ),

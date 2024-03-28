@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
 import 'package:kreplemployee/app/data/helper/controller/menucontroller.dart';
+import 'package:kreplemployee/app/data/model/user_details_model.dart';
 import 'package:kreplemployee/app/logic/controllers/theme_controller.dart';
 import 'package:kreplemployee/app/presentation/pages/calendar/calendar_view.dart';
 import 'package:kreplemployee/app/presentation/pages/landing_pages/landing_pages.dart';
@@ -16,7 +17,11 @@ import 'package:kreplemployee/app/presentation/widgets/drawer/side_menu.dart';
 import 'package:kreplemployee/app/presentation/widgets/drawer/toogle_button.dart';
 
 class CustomDrawer extends StatefulWidget {
-  const CustomDrawer({super.key});
+  final UserDetails userDetails;
+  const CustomDrawer({
+    super.key,
+    required this.userDetails,
+  });
 
   @override
   State<CustomDrawer> createState() => _CustomDrawerState();
@@ -45,9 +50,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   Future.delayed(const Duration(milliseconds: 100))
                       .then((value) {
                     Get.back();
-                    Get.to(() => const ProfileView());
+                    Get.to(() =>  ProfileView(userDetails: widget.userDetails));
                   });
                 },
+                userDetails: widget.userDetails
               ),
               SizedBox(height: 50.h),
               SideMenu(
@@ -56,7 +62,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
-                    Get.to(() => const LandingPage());
+                    Get.to(() =>  LandingPage(userDetails: widget.userDetails));
                   });
                 },
                 icon: AppAssets.kCalendar,
@@ -139,7 +145,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   Future.delayed(const Duration(milliseconds: 500))
                       .then((value) {
                     Get.back();
-                    Get.to(() => const SettingsPage());
+                    Get.to(() =>  SettingsPage(userDetails: widget.userDetails));
                   });
                 },
                 icon: AppAssets.kOffers,

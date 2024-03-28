@@ -7,11 +7,13 @@ class SaveTourSheet extends StatelessWidget {
   final VoidCallback? saveCallback;
   final VoidCallback? draftCallback;
   final String bookText;
+  final String draftText;
   const SaveTourSheet({
     super.key,
     this.saveCallback,
     this.draftCallback,
     required this.bookText,
+    required this.draftText,
   });
 
   @override
@@ -31,7 +33,7 @@ class SaveTourSheet extends StatelessWidget {
               Expanded(
                 child: PrimaryButton(
                   onTap: draftCallback!,
-                  text: 'Save Draft',
+                  text: draftText,
                   color: isDarkMode(context)
                       ? AppColors.kContentColor
                       : AppColors.kWhite,

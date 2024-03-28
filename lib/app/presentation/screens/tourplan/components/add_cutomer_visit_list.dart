@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kreplemployee/app/data/constants/constants.dart';
+import 'package:kreplemployee/app/data/model/customer_model.dart';
 import 'package:kreplemployee/app/presentation/pages/home/components/search_field.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/custom_text_button.dart';
 import 'package:kreplemployee/app/presentation/widgets/buttons/primary_button.dart';
@@ -8,7 +9,11 @@ import 'package:kreplemployee/app/presentation/widgets/containers/primary_contai
 import 'package:kreplemployee/app/presentation/widgets/texts/custom_header_text.dart';
 
 class CustomerListPage extends StatefulWidget {
-  const CustomerListPage({Key? key}) : super(key: key);
+  final bool isMultiSelection;
+  const CustomerListPage({
+    Key? key,
+    this.isMultiSelection = true,
+  }) : super(key: key);
 
   @override
   State<CustomerListPage> createState() => _CustomerListPageState();
@@ -17,9 +22,9 @@ class CustomerListPage extends StatefulWidget {
 class _CustomerListPageState extends State<CustomerListPage> {
   final TextEditingController _searchController = TextEditingController();
 
-  // int? _selectedCustomerIndex;
-  List<int> _selectedCustomerIndexes = [];
-  List<Customer> _selectedCustomers = [];
+  int? _selectedCustomerIndex;
+  final List<int> _selectedCustomerIndexes = [];
+  final List<Customer> _selectedCustomers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -60,30 +65,32 @@ class _CustomerListPageState extends State<CustomerListPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomHeaderText(text: 'Customers', fontSize: 18.sp),
-                      _selectedCustomerIndexes.isNotEmpty
-                          ? CustomTextButton(
-                              onPressed: () {
-                                setState(() {
-                                  _selectedCustomerIndexes.clear();
-                                });
-                              },
-                              text:
-                                  'Clear All (${_selectedCustomerIndexes.length})',
-                            )
-                          : CustomTextButton(
-                              onPressed: () {
-                                setState(() {
-                                  // Clear the existing selected customer indexes
-                                  _selectedCustomerIndexes.clear();
-                                  // Add all customer indexes to the selected list
-                                  for (int i = 0; i < customers.length; i++) {
-                                    _selectedCustomerIndexes.add(i);
-                                    _selectedCustomers.add(customers[i]);
-                                  }
-                                });
-                              },
-                              text: 'Select All',
-                            ),
+                      if (widget.isMultiSelection)
+                        _selectedCustomerIndexes.isNotEmpty
+                            ? CustomTextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedCustomerIndexes.clear();
+                                    _selectedCustomers.clear();
+                                  });
+                                },
+                                text:
+                                    'Clear All (${_selectedCustomerIndexes.length})',
+                              )
+                            : CustomTextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    // Clear the existing selected customer indexes
+                                    _selectedCustomerIndexes.clear();
+                                    // Add all customer indexes to the selected list
+                                    for (int i = 0; i < customers.length; i++) {
+                                      _selectedCustomerIndexes.add(i);
+                                      _selectedCustomers.add(customers[i]);
+                                    }
+                                  });
+                                },
+                                text: 'Select All',
+                              ),
                     ],
                   ),
                   SizedBox(height: 16.h),
@@ -93,22 +100,30 @@ class _CustomerListPageState extends State<CustomerListPage> {
                     itemBuilder: (context, index) {
                       return CustomerCard(
                         onTap: () {
-                          setState(() {
-                            // _selectedCustomerIndex = index;
-                            // _selectedCustomerIndex =
-                            //     _selectedCustomerIndex == index ? null : index;
-                            if (_selectedCustomerIndexes.contains(index)) {
-                              _selectedCustomerIndexes.remove(index);
-                              _selectedCustomers.remove(customers[index]);
-                            } else {
-                              _selectedCustomerIndexes.add(index);
-                              _selectedCustomers.add(customers[index]);
-                            }
-                          });
+                          setState(
+                            () {
+                              if (widget.isMultiSelection) {
+                                if (_selectedCustomerIndexes.contains(index)) {
+                                  _selectedCustomerIndexes.remove(index);
+                                  _selectedCustomers.remove(customers[index]);
+                                } else {
+                                  _selectedCustomerIndexes.add(index);
+                                  _selectedCustomers.add(customers[index]);
+                                }
+                              } else {
+                                _selectedCustomerIndex = index;
+                                _selectedCustomers.clear();
+                                _selectedCustomers.add(customers[index]);
+                              }
+                            },
+                          );
                         },
                         // isSelected: _selectedCustomerIndex == index,
                         // customer: customers[index],
-                        isSelected: _selectedCustomerIndexes.contains(index),
+                        // isSelected: _selectedCustomerIndexes.contains(index),
+                        isSelected: widget.isMultiSelection
+                            ? _selectedCustomerIndexes.contains(index)
+                            : _selectedCustomerIndex == index,
                         customer: customers[index],
                       );
                     },
@@ -132,22 +147,39 @@ class _CustomerListPageState extends State<CustomerListPage> {
             SizedBox(height: 10.h),
             PrimaryButton(
               onTap: () {
-                if (_selectedCustomerIndexes.isNotEmpty) {
-                  print('Selected customers:');
-                  for (var customer in _selectedCustomers) {
-                    print(customer.name);
+                if (widget.isMultiSelection) {
+                  if (_selectedCustomerIndexes.isNotEmpty) {
+                    print('Selected customers:');
+                    for (var customer in _selectedCustomers) {
+                      print(customer.name);
+                    }
+                    Navigator.pop(context, _selectedCustomers);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please select a customer.'),
+                      ),
+                    );
                   }
-                  Navigator.pop(context, _selectedCustomers);
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please select a customer.'),
-                    ),
-                  );
+                  if (_selectedCustomerIndex != null) {
+                    print(
+                        'Selected customer: ${customers[_selectedCustomerIndex!].customerNumber}');
+                    Navigator.pop(context, _selectedCustomers);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please select a customer.'),
+                      ),
+                    );
+                  }
                 }
               },
               text: 'Select',
-              color: _selectedCustomerIndexes.isNotEmpty
+              color: (widget.isMultiSelection &&
+                          _selectedCustomerIndexes.isNotEmpty) ||
+                      (!widget.isMultiSelection &&
+                          _selectedCustomerIndex != null)
                   ? AppColors.kPrimary
                   : isDarkMode(context)
                       ? AppColors.kContentColor
@@ -218,71 +250,3 @@ class CustomerCard extends StatelessWidget {
     );
   }
 }
-
-class Customer {
-  final String name;
-  final String description;
-  final String image;
-
-  const Customer({
-    required this.name,
-    required this.description,
-    required this.image,
-  });
-}
-
-final List<Customer> customers = [
-  Customer(
-    name: 'John Doe',
-    description: 'Customer description...',
-    image: AppAssets.kLogo,
-  ),
-  Customer(
-    name: 'Jane Smith',
-    description: 'Customer description...',
-    image: AppAssets.kLogo,
-  ),
-  // Add more customers here
-  Customer(
-    name: 'Alice Johnson',
-    description: 'Customer description...',
-    image: AppAssets.kLogo,
-  ),
-  Customer(
-    name: 'Bob Brown',
-    description: 'Customer description...',
-    image: AppAssets.kLogo,
-  ),
-  // Add more customers as needed
-  Customer(
-    name: 'Michael Wilson',
-    description: 'Customer description...',
-    image: AppAssets.kLogo,
-  ),
-  Customer(
-    name: 'Emily Davis',
-    description: 'Customer description...',
-    image: AppAssets.kLogo,
-  ),
-  Customer(
-    name: 'Emily Davis',
-    description: 'Customer description...',
-    image: AppAssets.kLogo,
-  ),
-  Customer(
-    name: 'Emily Davis',
-    description: 'Customer description...',
-    image: AppAssets.kLogo,
-  ),
-  Customer(
-    name: 'Emily Davis',
-    description: 'Customer description...',
-    image: AppAssets.kLogo,
-  ),
-  Customer(
-    name: 'Emily Davis',
-    description: 'Customer description...',
-    image: AppAssets.kLogo,
-  ),
-  // Add more customers as needed
-];

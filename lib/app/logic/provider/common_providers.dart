@@ -1,6 +1,7 @@
 // common_providers.dart
 import 'package:kreplemployee/app/data/repository/auth/auth_token.dart';
 import 'package:kreplemployee/app/logic/provider/loginProvider/login_provider.dart';
+import 'package:kreplemployee/app/logic/provider/submittedOrderProvider/submitted_order_provider.dart';
 import 'package:provider/provider.dart';
 
 class CommonProviders {
@@ -15,4 +16,10 @@ class CommonProviders {
       create: (context) => LoginProvider(),
     );
   }
+  
+  static ChangeNotifierProvider<SubmittedOrderProvider> submittedOrderProvider() {
+  return ChangeNotifierProvider<SubmittedOrderProvider>(
+    create: (context) => SubmittedOrderProvider(),
+  );
+}
 }
